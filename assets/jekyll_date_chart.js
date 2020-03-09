@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".dchart").each(function(){new Morris.Line({element:$(this).attr("id"),data:$(this).data("entries"),xkey:"date",ykeys:$(this).data("ykeys"),labels:$(this).data("ykeys"),preUnits:$(this).data("unit")+" ",goals:["0.0"],goalStrokeWidth:"5",goalLineColors:["#000000"],smooth:!1})})});

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>WAR Dateien in Tomcat 7 entpacken - unpackWARs | Groovy Skills International</title>
+    <meta name="description" content="">
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Grails.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>24</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>16</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>3</sub> Allgemein
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/grails/2011/08/24/war-dateien-in-tomcat-7-entpacken-unpackwars" rel="bookmark" title="Permalink zu 'WAR Dateien in Tomcat 7 entpacken - unpackWARs'">
+        WAR Dateien in Tomcat 7 entpacken - unpackWARs
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     24 August 2011 
+</div>
+
+
+    <div class="entry-content">
+        <p>Bereits in Vorgängerversionen ist Tomcat <em>standardmäßig</em> so konfiguriert, dass <span class="caps">WAR</span> Dateien beim Deployment entpackt werden.</p>
+<p>Das ermöglicht unter anderem, statische Inhalte (<span class="caps">CSS</span>, JS, Bilder, &#8230;) über einen anderen Webserver bereit zu stellen.</p>
+<p>Allerdings kann es unter gewissen Umständen passieren, dass nach dem Update auf Tomcat 7 Applikationen verpackt bleiben &#8211; <em>obwohl <code>unpackWARs</code> oder <code>unpackWAR</code> gesetzt ist.</em></p>
+<h3>Wann bleibt unpackWARs in Tomcat 7 effektlos?</h3>
+<p>Ein Vergleich der Tomcat-Dokumentationen zu <code>unpackWAR</code> im Context Container-Abschnitt &#8216;Standard Implementation&#8217; zeigt warum:</p>
+<ul>
+	<li><a href="https://tomcat.apache.org/tomcat-6.0-doc/config/context.html#Standard_Implementation" class="colorbox-link" title="unpackWAR in der offiziellen Tomcat 6 Dokumentation">unpackWAR in Tomcat 6</a></li>
+	<li><a href="https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Standard_Implementation" class="colorbox-link" title="unpackWAR in der offiziellen Tomcat 7 Dokumentation">unpackWAR in Tomcat 7</a></li>
+</ul>
+<p>Wichtiger Unterschied: <em><strong>&#8220;Note that <span class="caps">WAR</span> files located outside of a Host&#8217;s appBase are never unpacked.&#8221;</strong></em></p>
+<p>Hat man also beispielsweise in der <code>context.xml</code> (oder <code>ROOT.xml</code>) einen Pfad außerhalb des laut <code>server.xml</code> definierten <a href="https://tomcat.apache.org/tomcat-7.0-doc/config/host.html" class="colorbox-link">Hosts</a> angegeben, so ist <code>unpackWARs</code> <em>effektlos</em>.</p>
+<h4>Beispiel</h4>
+<p>Inhalt von <code>/usr/local/apache-tomcat-7.0/conf/Catalina/localhost/ROOT.xml</code></p>
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Context</span> <span class="na">docBase=</span><span class="s">"/home/someuser/some-grails-app.war"</span> <span class="na">path=</span><span class="s">""</span> <span class="na">reloadable=</span><span class="s">"true"</span><span class="nt">/&gt;</span></code></pre></figure><h3>Lösung: Symlink zur Applikation in webapps Verzeichnis</h3>
+<p>Damit WAR&#8217;s wieder entpackt werden, kann man entweder die <strong>appBase</strong> in der Host-Definition anpassen oder man entfernt die <code>ROOT.xml</code> und setzt stattdessen einen entsprechenden Symlink:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Verschieben der original ROOT-Applikation:</span>
+mv /usr/local/apache-tomcat-7.0/webapps/ROOT /usr/local/apache-tomcat-7.0/webapps/ROOT_orig
+<span class="c"># Verlinken der Grails-Beispielapplikation als ROOT.war:</span>
+ln <span class="nt">-s</span> /home/someuser/some-grails-app.war /usr/local/apache-tomcat-7.0/webapps/ROOT.war</code></pre></figure><p>Der hier gesetzte Link sorgt dafür, dass die Grails Applikation mit dem Namen &#8220;some-grails-app&#8221; als <span class="caps">ROOT</span>-Anwendung entpackt und gestartet wird.</p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<a href="https://twitter.com/intent/user?screen_name=GroovySkills" title="Du solltest uns auf Twitter folgen indem du hier klickst.">PS: Es w&auml;re l&auml;ssig, dich auf Twitter zu treffen: <strong>hier</strong></a>
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Oder hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/freebsd/2011/08/10/liste-kurzlich-installierter-ports-ausgeben"
+                            title="Liste kürzlich installierter Ports ausgeben">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/wordpress/2011/08/24/wordpress-wartung-verwaltungsbereich-sperren"
+                            title="WordPress Wartung: Verwaltungsbereich sperren">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+            <h3 class="comments-number">1 Kommentar</h3>
+		
+
+    <ol class="commentlist">
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Maxim
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-02-25 12:52</span>
+                </div>
+
+                <p>
+                    Vielen Dank für diesen Post. Bin mit meiner Webapplikation genau in das gleiche Problem gelaufen. Die Lösung mit dem Symlink klappt wunderbar.
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/grails/2011/08/24/war-dateien-in-tomcat-7-entpacken---unpackwars"/>
+                <input type="hidden" name="post_title" value="WAR Dateien in Tomcat 7 entpacken - unpackWARs" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/grails/2011/08/24/war-dateien-in-tomcat-7-entpacken-unpackwars"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere unsere Artikel als RSS">
+                    Abonniere <span class="email-narrow">unsere Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/allgemein/2018/01/02/internetverbindung-des-sailfish-x-via-wifi-freigeben-workaround">Internetverbindung des Sailfish X via WiFi freigeben (Workaround)</a><br />
+        <small><strong>January  2, 2018</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/allgemein/2017/10/28/masse-und-gewicht-beliebter-sailfish-handys-nexus-5-und-xperia-x">Maße und Gewicht beliebter Sailfish Handys: Nexus 5 und Xperia X</a><br />
+        <small><strong>October 28, 2017</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/allgemein/2017/10/15/anleitung-zeitpunkt-der-segwit2x-aktivierung-berechnen-mit-ergebnis">Zeitpunkt der Segwit2X Aktivierung berechnen (mit Ergebnis)</a><br />
+        <small><strong>October 15, 2017</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/freebsd/2015/03/07/pfsense-boot-slice-uber-kommandozeile-duplizieren">pfSense Boot-Slice über Kommandozeile duplizieren</a><br />
+        <small><strong>March  7, 2015</strong> . FreeBSD . </small>
+    </li>
+    
+    <li><a href="/freebsd/2014/10/20/installierte-ports-nach-einem-bestimmtem-suchbegriff-filtern">Installierte Ports nach einem bestimmtem Suchbegriff filtern</a><br />
+        <small><strong>October 20, 2014</strong> . FreeBSD . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#FreeBSD-ref">
+    	  <sub>2</sub> FreeBSD
+    	</a></li>
+     
+    	<li><a href="/tags.html#Tomcat-ref">
+    	  <sub>3</sub> Tomcat
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Rambling Tweets</h2>
+                    <a href="https://twitter.com/intent/user?screen_name=GroovySkills" class="elements-twitter" title="Du solltest uns auf Twitter folgen indem du hier klickst.">Twitter</a>
+
+                </li>
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2020 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
