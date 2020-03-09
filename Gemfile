@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'atom-tools', '~> 2.0.5'
 gem 'coffee-script'
-gem 'jekyll', '~> 3.6.2'
+gem 'jekyll', '~> 3.6.3'
 #gem 'jekyll-category-feeds'
 gem 'jekyll-textile-converter'
 gem 'nokogiri', '~> 1.8.1'
