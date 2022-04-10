@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ownCloud 4.5 in FreeNAS 8 Plugins-Jail oder FreeBSD installieren | Groovy Skills International</title>
+    <meta name="description" content="">
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/FreeBSD.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>26</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>16</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>4</sub> Allgemein
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/freebsd/2012/10/12/owncloud-45-in-freenas-8-plugins-jail-oder-freebsd-installieren" rel="bookmark" title="Permalink zu 'ownCloud 4.5 in FreeNAS 8 Plugins-Jail oder FreeBSD installieren'">
+        ownCloud 4.5 in FreeNAS 8 Plugins-Jail oder FreeBSD installieren
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     12 October 2012 
+</div>
+
+
+    <div class="entry-content">
+        <p><strong>Es existiert eine vereinfachte und aktualisierte Version dieses Artikels: <a href="/freebsd/2013/09/03/owncloud-5-in-freenas-91-jail-oder-freebsd-installieren" class="nocb">ownCloud 5 in FreeNAS 9.1 Jail oder FreeBSD installieren</a></strong></p>
+<p>Der FreeNAS Wiki-Artikelabschnitt <a href="http://doc.freenas.org/index.php/Plugins#Jail_Settings" title="FreeNAS Wiki-Artikel &#39;Plugins&#39;">Installing the Plugins Jail</a> erläutert die Installation der Plugins-Jail.</p>
+<p>Verbindet man sich danach via <span class="caps">SSH</span> zur FreeNAS-Box, kann man mittels Befehl &#8220;<code>jexec 1 tcsh</code>&#8221; in die entsprechende Jail wechseln und die notwendige Installation vornehmen.<br />
+<em>Achtung: Die Ziffer variiert. Die korrekte kann man mit dem Befehl &#8220;<code>jls</code>&#8221; herausfinden.</em></p>
+<p>Der anschließende Installationsverlauf funktioniert gleich wie außerhalb einer FreeBSD-Jail und ist im Folgenden erläutert. Die Anleitung ist mit <strong>FreeNAS 8.2</strong> getestet.</p>
+<h2>Warnung vor möglichem Datenverlust</h2>
+<p><strong>Ein späteres Update der Plugins-Jail führt zum Verlust der hier beschriebenen Einrichtung und der darin befindlichen persönlichen ownCloud-Daten.</strong></p>
+<p>Um das zu verhindern, könnte eine gesonderte Jail <em>exklusiv</em> für ownCloud eingerichtet werden.</p>
+<p>Die bessere Integration in die FreeNAS-Weboberfläche spricht allerdings <em>für</em> die Nutzung der Plugins-Jail. Regelmäßige Datensicherungen in Kombination mit dieser Anleitung erleichtern das erneute Einrichten nach einem Update.</p>
+<p><em>Diese Anmerkung bezieht sich ausschließlich auf <strong>Updates in der Plugins-Jail</strong>. Updates des FreeNAS-Hauptsystems können wie gewohnt durchgeführt werden, da diese die Jails grundsätzlich unberührt lassen.</em></p>
+<h2>Ports-Tree aktualisieren und Konflikt-Pakete entfernen</h2>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">portsnap fetch extract
+pkg_delete -f perl-5.12.4_3 pkg-config-0.25_1 pcre-8.21</code></pre></figure><p><a title="FreeBSD Manpage zum Systemverwaltungskommando 'portsnap - fetch and extract compressed snapshots of the ports tree'" href="http://www.freebsd.org/cgi/man.cgi?query=portsnap&apropos=0&sektion=8&arch=default&format=latin1">portsnap(8)</a>, <a title="FreeBSD Manpage zum Benutzerkommando 'pkg_delete - a utility for deleting previously installed software package distributions'" href="http://www.freebsd.org/cgi/man.cgi?query=pkg_delete&apropos=0&sektion=1&arch=default&format=latin1">pkg_delete(1)</a></p>
+<h2>ownCloud aus den Ports installieren</h2>
+<p>Beim Verfassen dieses Artikels ist 4.0.7 die aktuelle ownCloud-Version in den Ports.</p>
+<p>Obwohl letztendlich <strong>ownCloud 4.5.0</strong> installiert werden soll, bringt die Installation aus den Ports zwei Vorteile: Einerseits werden dabei annähernd alle Paketabhängigkeiten konfiguriert und installiert. Zieht die Version aus den FreeBSD-Ports einst nach, erhält man zudem passende <a href="http://www.freebsd.org/doc/de/books/handbook/security-portaudit.html" title="FreeBSD-Handbuch: &#39;15.12. Sicherheitsprobleme in Software Dritter überwachen&#39;">portaudit</a> Berichte.</p>
+<p>Beim Konfigurieren des <span class="caps">PHP</span>-Ports in folgendem Schritt muss <strong>Build <span class="caps">FPM</span> version</strong> ausgewählt sein. <span class="caps">CLI</span> und <span class="caps">CGI</span> können abgewählt werden.</p>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">cd /usr/ports/www/owncloud
+make config-recursive
+make install clean</code></pre></figure><h2>Zusätzliche Abhängigkeiten installieren</h2>
+<p>Sowohl <em>zlib</em> als auch <em>iconv</em> werden von ownCloud benötigt.</p>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">cd /usr/ports/archivers/php5-zlib &amp;&amp; make install clean
+cd /usr/ports/converters/php5-iconv &amp;&amp; make install clean</code></pre></figure><h2>ownCloud 4.5.0 installieren</h2>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">cd /usr/local/www/
+fetch http://download.owncloud.org/releases/owncloud-4.5.0.tar.bz2
+tar xjf owncloud-4.5.0.tar.bz2 -C /root/
+mv /root/owncloud /usr/local/www/owncloud-4.5
+chown -R www:www /usr/local/www/owncloud-4.5</code></pre></figure><p><a title="FreeBSD Manpage zum Benutzerkommando 'fetch - retrieve a file by Uniform Resource Locator'" href="http://www.freebsd.org/cgi/man.cgi?query=fetch&apropos=0&sektion=1&arch=default&format=latin1">fetch(1)</a>, <a title="FreeBSD Manpage zum Benutzerkommando 'tar - manipulate tape archives'" href="http://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=1&arch=default&format=latin1">tar(1)</a></p>
+<h2><span class="caps">PHP</span>-<span class="caps">FPM</span> auf Socket umstellen und Transfer-Limits erhöhen</h2>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh"># PHP-FPM auf Socket umstellen
+sed -i '' -e 's/^listen =.*/listen = \/var\/run\/php-fpm.sock/g' /usr/local/etc/php-fpm.conf
+
+cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
+
+# Größere Uploads ermöglichen
+sed -i '' -e 's/^post_max_size =.*/post_max_size = 300M/g' /usr/local/etc/php.ini
+sed -i '' -e 's/^upload_max_filesize =.*/upload_max_filesize = 200M/g' /usr/local/etc/php.ini
+
+# Größere Downloads für Client-Apps ermöglichen (siehe untenstehende Anmerkung)
+sed -i '' -e 's/^memory_limit =.*/memory_limit = 512M/g' /usr/local/etc/php.ini</code></pre></figure><p><a title="FreeBSD Manpage zum Benutzerkommando 'sed - stream editor'" href="http://www.freebsd.org/cgi/man.cgi?query=sed&apropos=0&sektion=1&arch=default&format=latin1">sed(1)</a></p>
+<h3>Anmerkung zu memory_limit</h3>
+<p>Vor dem Herunterladen mittles <b>ownCloud</b> Client-App (beispielsweise auf Android), wird die betreffende Datei zuerst gänzlich in den Hauptspeicher geladen. Ist die Datei <em>größer</em> als das konfigurierte <strong>memory_limit</strong>, schlägt der Download mit folgender Meldung fehl:</p>
+<p><code>PHP message: PHP Fatal error:  Allowed memory size of ${memory_limit} bytes exhausted</code></p>
+<p>An Stelle von <code>${memory_limit}</code> wird dabei der enstprechend konfigurierte Wert ausgegeben.<br />
+<em>Dieses Verhalten wurde zuletzt in <strong>ownCloud Version 4.5.1</strong> verifiziert.</em></p>
+<h2>nginx installieren</h2>
+<p>Beim Konfigurieren des nginx-Ports in folgendem Schritt muss <strong>Enable http_ssl module</strong> ausgewählt sein.</p>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">cd /usr/ports/www/nginx &amp;&amp; make install clean</code></pre></figure><h2><span class="caps">SSL</span> Zertifikat für nginx erzeugen</h2>
+<p>Eine rasche Methode hierfür ist im Beitrag <a href="/freebsd/2012/09/15/ssl-zertifikat-erzeugen-und-direkt-in-die-nginx-conf-ubernehmen" title="Beitrag &#39;SSL Zertifikat erzeugen und direkt in die nginx.conf übernehmen&#39;"><span class="caps">SSL</span> Zertifikat erzeugen und direkt in die nginx.conf übernehmen</a> erklärt.</p>
+<h2>nginx konfigurieren</h2>
+<p>Um sämtliche Funktionen von ownCloud nutzen zu können, müssen <strong>im server-Abschnitt</strong> (<span class="caps">HTTPS</span>) der <strong>/usr/local/etc/nginx/nginx.conf</strong> die kommentierten Bereiche freigestellt und folgende Einträge an Stelle der vorhandenen <strong>location</strong>-Direktiven eingefügt werden.</p>
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx">        <span class="k">root</span> <span class="n">/usr/local/www/owncloud-4.5</span><span class="p">;</span>
+        <span class="k">client_max_body_size</span> <span class="mi">200m</span><span class="p">;</span>
+
+        <span class="k">location</span> <span class="n">/</span> <span class="p">{</span>
+                <span class="kn">index</span>  <span class="s">index.html</span> <span class="s">index.htm</span> <span class="s">index.php</span><span class="p">;</span>
+                <span class="c1"># http://forum.owncloud.org/viewtopic.php?f=3&amp;t=2952&amp;p=7158#p7157
+</span>                <span class="kn">rewrite</span> <span class="s">^/.well-known/host-meta</span> <span class="n">/public.php?service=host-meta</span> <span class="s">last</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/.well-known/carddav</span> <span class="n">/remote.php/carddav/</span> <span class="s">redirect</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/.well-known/caldav</span> <span class="n">/remote.php/caldav/</span> <span class="s">redirect</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/apps/calendar/caldav.php</span> <span class="n">/remote.php/caldav/</span> <span class="s">last</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/apps/contacts/carddav.php</span> <span class="n">/remote.php/carddav/</span> <span class="s">last</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/apps/([^/]*)/(.*</span><span class="err">\</span><span class="s">.(css|php))</span>$ <span class="n">/index.php?app=</span><span class="nv">$1</span><span class="s">&amp;getfile=</span><span class="nv">$2</span> <span class="s">last</span><span class="p">;</span>
+                <span class="kn">rewrite</span> <span class="s">^/remote/(.*)</span> <span class="n">/remote.php/</span><span class="nv">$1</span> <span class="s">last</span><span class="p">;</span>
+
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_NAME</span>     <span class="nv">$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">PATH_INFO</span>       <span class="nv">$fastcgi_path_info</span><span class="p">;</span>
+
+                <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri</span><span class="n">/</span> <span class="s">@webdav</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">location</span> <span class="p">~</span> <span class="sr">\.php$</span> <span class="p">{</span>
+                <span class="c1"># http://bugs.owncloud.org/thebuggenie/owncloud/issues/oc-902#comment_1_904_8388
+</span>                <span class="c1">#fastcgi_split_path_info ^(.+\.php)(/.*)$;
+</span>                <span class="kn">include</span>         <span class="s">fastcgi_params</span><span class="p">;</span>
+                <span class="kn">fastcgi_pass</span>    <span class="s">unix:/var/run/php-fpm.sock</span><span class="p">;</span>
+                <span class="kn">fastcgi_index</span>   <span class="s">index.php</span><span class="p">;</span>
+
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_NAME</span>     <span class="nv">$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">PATH_INFO</span>       <span class="nv">$fastcgi_path_info</span><span class="p">;</span>
+
+                <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1"># owncloud WebDAV
+</span>        <span class="k">location</span> <span class="s">@webdav</span> <span class="p">{</span>
+                <span class="kn">fastcgi_split_path_info</span> <span class="s">^(.+</span><span class="err">\</span><span class="s">.php)(/.*)</span>$<span class="p">;</span>
+                <span class="kn">fastcgi_pass</span>    <span class="s">unix:/var/run/php-fpm.sock</span><span class="p">;</span>
+
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">SCRIPT_NAME</span>     <span class="nv">$fastcgi_script_name</span><span class="p">;</span>
+                <span class="kn">fastcgi_param</span>   <span class="s">PATH_INFO</span>       <span class="nv">$fastcgi_path_info</span><span class="p">;</span>
+
+                <span class="kn">fastcgi_param</span>   <span class="s">HTTPS</span> <span class="no">on</span><span class="p">;</span>
+                <span class="kn">include</span>         <span class="s">fastcgi_params</span><span class="p">;</span>
+        <span class="p">}</span></code></pre></figure><h2>nginx und <span class="caps">PHP</span>-<span class="caps">FPM</span> dauerhaft aktivieren und starten</h2>
+<figure class="highlight"><pre><code class="language-csh" data-lang="csh">echo 'nginx_enable="YES"' &gt;&gt; /etc/rc.conf
+echo 'php_fpm_enable="YES"' &gt;&gt; /etc/rc.conf
+
+/usr/local/etc/rc.d/php-fpm start
+/usr/local/etc/rc.d/nginx start</code></pre></figure><p><a title="FreeBSD Manpage zum Benutzerkommando 'echo - write arguments to the standard output'" href="http://www.freebsd.org/cgi/man.cgi?query=echo&apropos=0&sektion=1&arch=default&format=latin1">echo(1)</a>, <a title="FreeBSD Manpage zum Dateiformat/zur Konvention 'rc.conf - system configuration information'" href="http://www.freebsd.org/cgi/man.cgi?query=rc.conf&apropos=0&sektion=5&arch=default&format=latin1">rc.conf(5)</a></p>
+<h2>Zur ownCloud-Weboberfläche verbinden</h2>
+<p>Nun kann man sich via Browser zur ownCloud-Installation verbinden und die Software in vollem Umfang nutzen.</p>
+<p>Die entsprechende IP-Adresse der Plugins-Jails kann man in der <strong>FreeNAS-Weboberfläche</strong> unter <em>Services &gt; Plugins &gt; Management &gt; Settings</em> einsehen.</p>
+<p><em><strong>Tipp:</strong> Ein <a href="/freebsd/2012/11/05/dateien-aus-freenas-in-owncloud-plugins-jail-verfugbar-machen" class="nocb" title="Beitrag &#39;Dateien aus FreeNAS in ownCloud Plugins Jail verfügbar machen&#39;">weiterer Artikel</a> beschreibt, wie man die Dateien aus FreeNAS direkt in ownCloud verfügbar machen kann.</em></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<a href="https://twitter.com/intent/user?screen_name=GroovySkills" title="Du solltest uns auf Twitter folgen indem du hier klickst.">PS: Es w&auml;re l&auml;ssig, dich auf Twitter zu treffen: <strong>hier</strong></a>
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Oder hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/linux/2012/09/21/sudo-bestimmte-kommandos-ohne-passwortabfrage-erlauben-sudoers"
+                            title="sudo: Bestimmte Kommandos ohne Passwortabfrage erlauben (sudoers)">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/freebsd/2012/11/05/dateien-aus-freenas-in-owncloud-plugins-jail-verfugbar-machen"
+                            title="Dateien aus FreeNAS in ownCloud Plugins Jail verfügbar machen">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/freebsd/2012/10/12/owncloud-45-in-freenas-8-plugins-jail-oder-freebsd-installieren"/>
+                <input type="hidden" name="post_title" value="ownCloud 4.5 in FreeNAS 8 Plugins-Jail oder FreeBSD installieren" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/freebsd/2012/10/12/owncloud-45-in-freenas-8-plugins-jail-oder-freebsd-installieren"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere unsere Artikel als RSS">
+                    Abonniere <span class="email-narrow">unsere Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren">Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren</a><br />
+        <small><strong>April 10, 2022</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren">LineageOS auf Samsung Galaxy Tab3 Tablet installieren</a><br />
+        <small><strong>April  3, 2022</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/linux/2018/10/16/neue-udev-regeln-nach-allgemein-gultigem-ansatz-definieren">Neue udev-Regeln nach allgemein gültigem Ansatz definieren</a><br />
+        <small><strong>October 16, 2018</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/allgemein/2018/01/02/internetverbindung-des-sailfish-x-via-wifi-freigeben-workaround">Internetverbindung des Sailfish X via WiFi freigeben (Workaround)</a><br />
+        <small><strong>January  2, 2018</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/allgemein/2017/10/28/masse-und-gewicht-beliebter-sailfish-handys-nexus-5-und-xperia-x">Maße und Gewicht beliebter Sailfish Handys: Nexus 5 und Xperia X</a><br />
+        <small><strong>October 28, 2017</strong> . Allgemein . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#FreeNAS-ref">
+    	  <sub>5</sub> FreeNAS
+    	</a></li>
+     
+    	<li><a href="/tags.html#Jail-ref">
+    	  <sub>5</sub> Jail
+    	</a></li>
+     
+    	<li><a href="/tags.html#Plugins-ref">
+    	  <sub>4</sub> Plugins
+    	</a></li>
+     
+    	<li><a href="/tags.html#ownCloud-ref">
+    	  <sub>3</sub> ownCloud
+    	</a></li>
+     
+    	<li><a href="/tags.html#nginx-ref">
+    	  <sub>4</sub> nginx
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Rambling Tweets</h2>
+                    <a href="https://twitter.com/intent/user?screen_name=GroovySkills" class="elements-twitter" title="Du solltest uns auf Twitter folgen indem du hier klickst.">Twitter</a>
+
+                </li>
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2022 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
