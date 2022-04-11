@@ -58,13 +58,15 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.8.0)
     netrc (0.11.0)
-    nokogiri (1.8.1)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.13.4)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     pathutil (0.16.0)
       forwardable-extended (~> 2.6)
     public_suffix (3.0.1)
+    racc (1.6.0)
     rack (1.6.8)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
@@ -102,7 +104,7 @@ DEPENDENCIES
   jekyll-textile-converter
   jekyll_date_chart
   jekyll_quick_man (~> 0.0.3)
-  nokogiri (~> 1.8.1)
+  nokogiri (~> 1.13.4)
   rest-client
   sass
   uglifier
