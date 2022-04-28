@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>LineageOS auf Samsung Galaxy Tab3 Tablet installieren | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Allgemein.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>26</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>16</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>4</sub> Allgemein
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren" rel="bookmark" title="Permalink zu 'LineageOS auf Samsung Galaxy Tab3 Tablet installieren'">
+        LineageOS auf Samsung Galaxy Tab3 Tablet installieren
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     03 April 2022 
+</div>
+
+
+    <div class="entry-content">
+        <p>Diese Anleitung erläutert das Ersetzen des Original-Betriebsystem eines <b>Samsung Galaxy Tab3</b> Tablet durch das inoffizielle &#8220;LineageOS&#8221; (Android 7.1).</p>
+<p>Das bisherige Betriebsystem wird dabei zerstört. <strong>Daten die nicht verloren gehen dürfen, müssen vorab gesichert werden.</strong></p>
+<h2>Vorbereitung</h2>
+<p><b>Heimdall</b> dient zum Aufspielen der notwendigen Daten auf das Tablet. Falls nicht in den Linux-Paketquellen verfügbar, kann es <a href="https://www.glassechidna.com.au/heimdall/">von der offiziellen Website</a> geladen und installiert werden.</p>
+<h2>&#8220;Recovery&#8221;-System installieren (Tablet in &#8220;Downloadmodus&#8221;)</h2>
+<ol>
+	<li><a href="https://forum.xda-developers.com/t/recovery-gt-p52xx-unofficial-twrp-3-x-for-samsung-galaxy-tab-3-10-1.3340938/post-65941300">Team Win Recovery Project 3.x herunterladen</a></li>
+	<li>Tablet Ausschalten und <span class="caps">USB</span>-Kabel entfernen</li>
+	<li>Tablet in Downloadmodus starten: <kbd>VolumeDown</kbd> und <em>zusätzlich</em> <kbd>Power</kbd> drücken und beide Knöpfe gedrückt halten bis ein Warnsymbol erscheint. Nun mit <kbd>VolumeUp</kbd> bestätigen.</li>
+	<li>Tablet per <span class="caps">USB</span> mit dem Linux-PC verbinden</li>
+	<li><span class="caps">TWRP</span> vom PC aus auf das Tablet laden: <br/> <code>heimdall flash --RECOVERY twrp-3.0.2-0-santos103g.img --no-reboot</code></li>
+	<li>Bei Erfolg <em>(&#8220;<span class="caps">RECOVERY</span> upload successful&#8221;)</em> das Tablet ausschalten(1)</li>
+</ol>
+<h2>LineageOS <span class="caps">ROM</span> installieren (Tablet in &#8220;Recoverymodus&#8221;)</h2>
+<ol>
+	<li><a href="https://forum.xda-developers.com/t/rom-gt-p52xx-unofficial-7-1-2-lineageos-14-1.3587761/post-71813779">LineageOS herunterladen</a> und auf eine SD-Karte kopieren</li>
+	<li>Tablet Ausschalten und <span class="caps">USB</span>-Kabel entfernen</li>
+	<li>SD-Karte mit LineageOS <span class="caps">ZIP</span>-Datei in Tablet einsetzen(2)</li>
+	<li>Tablet in Recoverymodus starten: <kbd>VolumeUp</kbd> und <em>zusätzlich</em> <kbd>Power</kbd> drücken und beide Knöpfe gedrückt halten bis das Samsung-Logo erscheint.</li>
+	<li>Bisheriges System löschen (!): <b>Wipe &gt; Swipe to Factory Reset</b></li>
+	<li>Zurück zum Hauptmenü navigieren</li>
+	<li>Neues <span class="caps">ROM</span> installieren: <b>Install &gt; Select Storage &gt; Micro SDCard &gt; OK</b> <br/> <b>lineage-14.1-20210426-<span class="caps">UNOFFICIAL</span>-santos103g.zip &gt; Swipe to confirm Flash</b></li>
+	<li>Bei Erfolg Tablet neu starten</li>
+</ol>
+<p>Der erste Start von LineageOS dauert auf diesem Gerät ungefähr 2-3 Minuten.</p>
+<p>Weitere Informationen: <a href="https://forum.xda-developers.com/t/rom-gt-p52xx-unofficial-7-1-2-lineageos-14-1.3587761/">[<span class="caps">ROM</span>][GT-P52XX][<span class="caps">UNOFFICIAL</span>][7.1.2] LineageOS 14.1</a></p>
+<hr />
+<p style="vertical-align:middle;" class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> Bei Problemen könnten diese Beiträge hilfreich sein: <a href="https://forum.xda-developers.com/t/how-to-flash-recovery-using-linux-and-heimdall-solved.4238595/">How to flash recovery using Linux and Heimdall?</a>, <a href="https://forum.xda-developers.com/t/guide-flashing-with-heimdall.878686/">Flashing with Heimdall</a></p>
+<p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> Ist bekannt welche Komponenten wohin installiert werden müssen, kann Heimdall das <span class="caps">ROM</span> auch direkt installieren: <a href="https://everydaylht.com/howtos/android/use-heimdall-to-install-kernels-recoveries-roms-on-your-samsung-android-device/">Use Heimdall to Install Kernels, Recoveries, ROMs on your Samsung Android Device</a></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<a href="https://twitter.com/intent/user?screen_name=GroovySkills" title="Du solltest uns auf Twitter folgen indem du hier klickst.">PS: Es w&auml;re l&auml;ssig, dich auf Twitter zu treffen: <strong>hier</strong></a>
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Oder hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/linux/2018/10/16/neue-udev-regeln-nach-allgemein-gultigem-ansatz-definieren"
+                            title="Neue udev-Regeln nach allgemein gültigem Ansatz definieren">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren"
+                            title="Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren"/>
+                <input type="hidden" name="post_title" value="LineageOS auf Samsung Galaxy Tab3 Tablet installieren" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere unsere Artikel als RSS">
+                    Abonniere <span class="email-narrow">unsere Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren">Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren</a><br />
+        <small><strong>April 10, 2022</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren">LineageOS auf Samsung Galaxy Tab3 Tablet installieren</a><br />
+        <small><strong>April  3, 2022</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/linux/2018/10/16/neue-udev-regeln-nach-allgemein-gultigem-ansatz-definieren">Neue udev-Regeln nach allgemein gültigem Ansatz definieren</a><br />
+        <small><strong>October 16, 2018</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/allgemein/2018/01/02/internetverbindung-des-sailfish-x-via-wifi-freigeben-workaround">Internetverbindung des Sailfish X via WiFi freigeben (Workaround)</a><br />
+        <small><strong>January  2, 2018</strong> . Allgemein . </small>
+    </li>
+    
+    <li><a href="/allgemein/2017/10/28/masse-und-gewicht-beliebter-sailfish-handys-nexus-5-und-xperia-x">Maße und Gewicht beliebter Sailfish Handys: Nexus 5 und Xperia X</a><br />
+        <small><strong>October 28, 2017</strong> . Allgemein . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#Android-ref">
+    	  <sub>2</sub> Android
+    	</a></li>
+     
+    	<li><a href="/tags.html#heimdall-ref">
+    	  <sub>1</sub> heimdall
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Rambling Tweets</h2>
+                    <a href="https://twitter.com/intent/user?screen_name=GroovySkills" class="elements-twitter" title="Du solltest uns auf Twitter folgen indem du hier klickst.">Twitter</a>
+
+                </li>
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2022 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
