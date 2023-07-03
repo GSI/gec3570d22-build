@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>GitHub als CMS (2/2): Statische Webseiten mit Travis CI bauen | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Jekyll.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>28</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>17</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>4</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/jekyll/2014/03/20/github-als-cms-2-von-2-statische-webseiten-mit-travis-ci-bauen" rel="bookmark" title="Permalink zu 'GitHub als CMS (2/2): Statische Webseiten mit Travis CI bauen'">
+        GitHub als CMS (2/2): Statische Webseiten mit Travis CI bauen
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     20 March 2014 
+</div>
+
+
+    <div class="entry-content">
+        <p>Im <a href="/jekyll/2014/03/20/github-als-cms-1-von-2-statisch-generierte-webseiten-fur-anfanger" class="nocb" title="Artikel &#39;GitHub als CMS (1/2): Statisch generierte Webseiten für Anfänger&#39;">ersten Teil dieser Artikelserie</a> ist erläutert, wie man Web-Autoren das Editieren von Inhalten mittels GitHub erleichtern kann.</p>
+<p><strong>Dieser Artikel beschreibt das automatische Generieren und Veröffentlichen der Webseiten.</strong></p>
+<h2>Grundkonzept</h2>
+<p>Grundsätzlich sind folgende Schritte erforderlich:</p>
+<ol>
+	<li>Quellcode beziehen</li>
+	<li>Statische Webseite bauen</li>
+	<li>Statische Webseite veröffentlichen</li>
+</ol>
+<p>Im Rahmen dieses Artikels werden dafür folgende Dienste genutzt:</p>
+<ol>
+	<li>Der Quellcode wird auf <b>GitHub</b> verwaltet.</li>
+	<li>Die statische Webseite wird mittels <b>Travis CI</b> gebaut.</li>
+	<li>Die resultierende Statische Webseite wird auf <b>GitHub Pages</b> veröffentlicht.</li>
+</ol>
+<p><em>Demnach gelten die jeweiligen Nutzungsrichtlinien von <a href="https://help.github.com/articles/github-terms-of-service">GitHub</a> und <a href="https://billing.travis-ci.com/pages/tos">Travis CI</a>.</em></p>
+<p><!-- You may use GitHub subdomains (e.g., yourname.github.io) solely as permitted and intended by the GitHub Pages tool to host your company pages, personal pages, or open source project pages, and for no other purpose. --></p>
+<p>Außerdem ist wichtig, sich bewusst zu sein, dass in beide Dienste im Standardangebot sämtliche Inhalte als Open Source behandeln und somit für jedermann einsehbar sind.</p>
+<h2>Quellcode von GitHub beziehen</h2>
+<p>Sobald man sich mit dem entsprechenden GitHub-Konto bei <a href="http://travis-ci.org" title="Travis CI - Free Hosted Continuous Integration Platform for the Open Source Community"><b>Travis CI</b></a> angemeldet hat, können einzelne Repositories zur Verarbeitung gewählt werden.</p>
+<p>Der Leser sollte dies ohne Schwierigkeiten handhaben können. Details sind in der <a href="http://docs.travis-ci.com/user/getting-started/" title="Travis CI: Getting started">Travis CI Dokumentation</a> erläutert.</p>
+<h2>Mittels Travis CI bauen und auf GitHub Pages veröffentlichen</h2>
+<p>Um von <b>Travis CI</b> in ein Git-Repository schreiben zu können, muss sichergestellt werden, dass sich die Applikation authentifizieren kann.</p>
+<p>Anstatt umständlich mit <span class="caps">SSH</span>-Schlüsseln zu arbeiten, bietet es sich an, Benutzername und Passwort direkt in der Git-Remote <span class="caps">URL</span> fest zu halten.</p>
+<h3>Access Token generieren</h3>
+<p>Für diese <span class="caps">HTTPS</span>-Authentifizierung wird ein Zugriffskürzel benötigt, welches laut <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use" title="GitHub: Creating an access token for command line use">der Beschreibung auf GitHub</a> generiert werden kann.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Token zur weiteren Verarbeitung speichern</span>
+<span class="nv">GITHUB_TOKEN</span><span class="o">=</span>e2643f7d431b071c58729474daaa6d805b336596</code></pre></figure><h2>Access Token verschlüsseln</h2>
+<p>Würde man das Token im Klartext in die Konfigurationsdatei schreiben, könnte dieses leicht kompromittiert werden.</p>
+<p><b>Travis CI</b> bietet daher eine einfache Möglichkeit, derartige Daten zu <a href="http://docs.travis-ci.com/user/encryption-keys/" title="Travis CI Dokumentation: &#39;Encryption Keys&#39;">verschlüsseln</a> und im Rahmen des Build-Prozesses wieder <a href="http://docs.travis-ci.com/user/build-configuration/#Set-environment-variables" title="Travis CI: Build Configuration - Set environment variables">zur Verfügung zu stellen</a>.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Travis Gem installieren</span>
+gem install travis travis-lint
+
+<span class="c"># Token verschlüsseln und in .travis.yml schreiben</span>
+travis encrypt <span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="k">${</span><span class="nv">GITHUB_TOKEN</span><span class="k">}</span> <span class="nt">--add</span> env.global
+
+<span class="c"># Gültigkeit von .travis.yml sicherstellen</span>
+travis-lint</code></pre></figure><p>Damit werden Kommandos im späteren <b>Travis CI</b> Build-Prozess den ursprünglichen Wert von <code>${GITHUB_TOKEN}</code> auslesen können.</p>
+<h2>Skript zur Veröffentlichung in .travis.yml hinterlegen</h2>
+<p>Dies ist ein vollständiges Beispiel für die Datei <b>.travis.yml</b>.</p>
+<p>Nachdem die Abhängigkeiten installiert sind, wird die Seite gebaut (<code>middleman build</code>). Anschließend wird das Ergebnis als eigenes Git-Repository initialisiert, konfiguriert und in das Ziel-Repository veröffentlicht.</p>
+<p>Man beachte den Zugriff auf <code>${GITHUB_TOKEN}</code> im Rahmen des <code>git remote</code> Kommandos. Wichtig ist auch die Verwendung von <code>--quiet</code> um zu verhindern, dass das Token auf der <b>Travis CI</b> Website im Klartext aufscheint.</p>
+<p><strong>Achtung: In diesem Beispiel werden die Inhalte des Ziel-Repository gänzlich gelöscht und neu angelegt.</strong></p>
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="na">rvm</span><span class="pi">:</span> <span class="s">2.0.0</span>
+<span class="na">env</span><span class="pi">:</span>
+  <span class="na">global</span><span class="pi">:</span>
+    <span class="na">secure</span><span class="pi">:</span> <span class="s">I3lfngRydxAJzdZQ7lVf2h8EqymIH8OyR71miD1NDN5ioOfXSaVPzB6+OX2KGI9x4TXs4QKZdBpu5zEJDfLqbLbbmn4X8AayGgzEmcEkubAOc8/epdELlYRxBL4x5v5R/wRDEl+0mr9G+cYZ+UKhvFnXnUX1V9JvsHS1P+xbfHk=</span>
+<span class="na">before_install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">sudo apt-get update -qq</span>
+<span class="pi">-</span> <span class="s">sudo apt-get install -qq jpegoptim libjpeg-turbo-progs pngcrush optipng advancecomp</span>
+<span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="no">bundle exec middleman build &amp;&amp;</span>
+  <span class="no">cd ./build &amp;&amp; site_url=`cat CNAME` &amp;&amp; [ ${site_url} != '' ] &amp;&amp;</span>
+  <span class="no">git init &amp;&amp; git remote add origin https://BENUTZERNAME:${GITHUB_TOKEN}@github.com/BENUTZERNAME/${site_url}-build.git &amp;&amp;</span>
+  <span class="no">git config user.email \"`date '+%Y'`@example.org\" &amp;&amp; git config user.name \"Travis\ CI `date '+%Y'`\" &amp;&amp;</span>
+  <span class="no">git add . &amp;&amp; git status --porcelain | git commit --quiet --file=- &amp;&amp;</span>
+  <span class="no">git checkout -b gh-pages &amp;&amp; git push --quiet --force --set-upstream origin gh-pages</span></code></pre></figure><p><em>Im gegebenen Anwendungsfall kann ein Build nur dann als erfolgreich betrachtet werden, wenn die Webseite auch korrekt veröffentlicht wurde. Demnach ist in diesem Beispiel die gesamte Logik Teil des Abschnitts <strong>script</strong>, während in anderen Beispielen entsprechende Hooks wie etwa <strong>after_success</strong> angebrachter sind.</em></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/jekyll/2014/03/20/github-als-cms-1-von-2-statisch-generierte-webseiten-fur-anfanger"
+                            title="GitHub als CMS (1/2): Statisch generierte Webseiten für Anfänger">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/freebsd/2014/03/29/pyload-download-manager-in-freebsd-oder-freebsd-jail-installieren"
+                            title="pyLoad Download Manager in FreeBSD oder FreeBSD Jail installieren">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/jekyll/2014/03/20/github-als-cms-2-von-2-statische-webseiten-mit-travis-ci-bauen"/>
+                <input type="hidden" name="post_title" value="GitHub als CMS (2/2): Statische Webseiten mit Travis CI bauen" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/jekyll/2014/03/20/github-als-cms-2-von-2-statische-webseiten-mit-travis-ci-bauen"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/freebsd/2023/07/03/freebsd-jails-auf-neue-version-aktualisieren">FreeBSD-Jails auf neue Version aktualisieren</a><br />
+        <small><strong>July  3, 2023</strong> . FreeBSD . </small>
+    </li>
+    
+    <li><a href="/openbsd/2023/04/11/openbsd-i386-in-libvirt-qemu-slash-kvm-lauffahig-installieren">OpenBSD i386 in libvirt QEMU/KVM lauffähig installieren</a><br />
+        <small><strong>April 11, 2023</strong> . OpenBSD . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen">Vorinstalliertes System durch Alpine Linux ersetzen</a><br />
+        <small><strong>March 21, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/10/alpine-linux-fur-raspberry-pi-aufsetzen">Alpine Linux für Raspberry Pi aufsetzen</a><br />
+        <small><strong>March 10, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren">Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren</a><br />
+        <small><strong>April 10, 2022</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#ruby-ref">
+    	  <sub>4</sub> ruby
+    	</a></li>
+     
+    	<li><a href="/tags.html#git-ref">
+    	  <sub>6</sub> git
+    	</a></li>
+     
+    	<li><a href="/tags.html#travis-ref">
+    	  <sub>2</sub> travis
+    	</a></li>
+     
+    	<li><a href="/tags.html#jekyll-ref">
+    	  <sub>2</sub> jekyll
+    	</a></li>
+     
+    	<li><a href="/tags.html#middleman-ref">
+    	  <sub>2</sub> middleman
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>

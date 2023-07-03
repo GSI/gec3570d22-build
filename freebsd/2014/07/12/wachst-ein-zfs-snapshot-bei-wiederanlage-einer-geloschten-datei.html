@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Wächst ein ZFS Snapshot bei Wiederanlage einer gelöschten Datei? | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/FreeBSD.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>28</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>17</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>4</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/freebsd/2014/07/12/wachst-ein-zfs-snapshot-bei-wiederanlage-einer-geloschten-datei" rel="bookmark" title="Permalink zu 'Wächst ein ZFS Snapshot bei Wiederanlage einer gelöschten Datei?'">
+        Wächst ein ZFS Snapshot bei Wiederanlage einer gelöschten Datei?
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     12 July 2014 
+</div>
+
+
+    <div class="entry-content">
+        <p>Diese Frage ist kürzlich im Rahmen eines Sicherungsszenario aufgetreten und soll hier kurz in Form einiger Terminalabfragen und -ausgaben erläutert werden.</p>
+<h2>Ausgangssituation</h2>
+<ul>
+	<li><span class="caps">ZFS</span> Version 5</li>
+	<li>Deduplication deaktiviert</li>
+</ul>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># zfs get dedup stash/install</span>
+NAME           PROPERTY  VALUE          SOURCE
+stash/install  dedup     off            default
+
+<span class="c"># zfs get version stash/install</span>
+NAME           PROPERTY  VALUE    SOURCE
+stash/install  version   5        -</code></pre></figure><h2>Test 1: Lokales Umbenennen einer Datei</h2>
+<p>Eine Datei wird lediglich lokal umbenannt.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Snapshot erstellen</span>
+<span class="c"># zfs snap stash/install@before_rename</span>
+
+<span class="c"># Snapshot anzeigen</span>
+<span class="c"># zfs list -t snapshot | grep -E 'NAME|before_rename'</span>
+NAME                                                                        USED  AVAIL  REFER  MOUNTPOINT
+stash/install@before_rename                                                    0      -  68.1G  -
+
+<span class="c"># Datei verschieben (= umbenennen)</span>
+<span class="c"># ls -ahl archlinux-2013.04.01-dual.iso</span>
+<span class="nt">-rw-rw-r--</span>  1 g  g   506M Apr 23  2013 archlinux-2013.04.01-dual.iso
+<span class="c"># mv archlinux-2013.04.01-dual.iso RENAMED_x-2013.04.01-dual.iso</span>
+
+<span class="c"># Snapshot erstellen</span>
+<span class="c"># zfs snap stash/install@after_rename</span>
+<span class="c"># zfs list -t snapshot | grep -E 'NAME|rename'</span>
+NAME                                                                        USED  AVAIL  REFER  MOUNTPOINT
+stash/install@before_rename                                                    0      -  68.1G  -
+stash/install@after_rename                                                     0      -  68.1G  -</code></pre></figure><p><em><strong>Ergebnis:</strong> Snapshotgröße bleibt unberührt.</em></p>
+<h2>Test 2: Löschen und Wiedereinkopieren über Netzwerk</h2>
+<p>Eine Datei wird lokal gelöscht und über das Netzwerk (<span class="caps">CIFS</span>) wiedereinkopiert.</p>
+<p>Dieser Anwendungsfall ist gängig, wenn <span class="caps">ZFS</span> als Ziel-Dateisystem für regelmäßige Sicherungen von anderen Netzwerkgeräten eingesetzt wird.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># rm RENAMED_archlinux-2013.04.01-dual.iso</span>
+<span class="c"># [an dieser Stelle wurde via Netzwerk einkopiert]</span>
+<span class="c"># ls -hal archlinux-2013.04.01-dual.iso </span>
+<span class="nt">-rw-------</span>  1 g  g   506M Apr 23  2013 archlinux-2013.04.01-dual.iso
+
+<span class="c"># Snapshot erstellen</span>
+<span class="c"># zfs snap stash/install@after_recreation_via_network</span>
+<span class="c"># zfs list -t snapshot | grep -E 'NAME|before|after'</span>
+NAME                                                                        USED  AVAIL  REFER  MOUNTPOINT
+stash/install@before_rename                                                    0      -  68.1G  -
+stash/install@after_rename                                                  163K      -  68.1G  -
+stash/install@after_recreation_via_network                                     0      -  68.1G  -</code></pre></figure><p><em><strong>Ergebnis:</strong> Snapshotgröße wächst mit 163K minimal an, anstatt den benötigten Speicherplatz der Datei erneut zu verbrauchen.</em></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/corilla/2014/07/04/alles-gute-gratuliere-corilla-und-gewinne-metallica-vip-karten"
+                            title="Alles Gute! Gratuliere Corilla und gewinne Metallica VIP-Karten">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/jekyll/2014/07/28/hor-auf-mich-statisch-zu-nennen-vorgenerierte-webseiten-klagen"
+                            title="Hör auf, mich statisch zu nennen! Vorgenerierte Webseiten klagen">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/freebsd/2014/07/12/wachst-ein-zfs-snapshot-bei-wiederanlage-einer-geloschten-datei"/>
+                <input type="hidden" name="post_title" value="Wächst ein ZFS Snapshot bei Wiederanlage einer gelöschten Datei?" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/freebsd/2014/07/12/wachst-ein-zfs-snapshot-bei-wiederanlage-einer-geloschten-datei"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/freebsd/2023/07/03/freebsd-jails-auf-neue-version-aktualisieren">FreeBSD-Jails auf neue Version aktualisieren</a><br />
+        <small><strong>July  3, 2023</strong> . FreeBSD . </small>
+    </li>
+    
+    <li><a href="/openbsd/2023/04/11/openbsd-i386-in-libvirt-qemu-slash-kvm-lauffahig-installieren">OpenBSD i386 in libvirt QEMU/KVM lauffähig installieren</a><br />
+        <small><strong>April 11, 2023</strong> . OpenBSD . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen">Vorinstalliertes System durch Alpine Linux ersetzen</a><br />
+        <small><strong>March 21, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/10/alpine-linux-fur-raspberry-pi-aufsetzen">Alpine Linux für Raspberry Pi aufsetzen</a><br />
+        <small><strong>March 10, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren">Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren</a><br />
+        <small><strong>April 10, 2022</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#ZFS-ref">
+    	  <sub>3</sub> ZFS
+    	</a></li>
+     
+    	<li><a href="/tags.html#FreeNAS-ref">
+    	  <sub>6</sub> FreeNAS
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>

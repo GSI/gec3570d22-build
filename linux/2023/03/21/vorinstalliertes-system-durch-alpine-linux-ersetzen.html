@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Vorinstalliertes System durch Alpine Linux ersetzen | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Linux.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>28</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Anwendungstipps-ref">
+    		<sub>3</sub> Anwendungstipps
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>17</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>4</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen" rel="bookmark" title="Permalink zu 'Vorinstalliertes System durch Alpine Linux ersetzen'">
+        Vorinstalliertes System durch Alpine Linux ersetzen
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     21 March 2023 
+</div>
+
+
+    <div class="entry-content">
+        <p>Nur wenige Anbieter bieten virtuelle private Server (<span class="caps">VPS</span>) mit Alpine Linux an. Oft ist allerdings ein &#8220;Rettungsmodus&#8221; verfügbar, der grundlegende Änderungen am System ermöglicht.</p>
+<p><em>Diese Anleitung beschreibt wie man diesen Rettungsmodus nutzt um ein vorinstalliertes Betriebssystem komplett durch ein <strong>&#8220;diskless&#8221;</strong> Alpine Linux zu ersetzen.</em></p>
+<p>Obgleich sie auf die Änderungen in einem <b><span class="caps">VPS</span></b> optimiert ist, kann die gleiche Vorgehensweise bei Bedarf auch für lokale Installationen genutzt werden.</p>
+<h2>Rettungsmodus aktivieren</h2>
+<p>Der Rettungsmodus wird für gewöhnlich über die Web-Verwaltungsoberfläche des Hosting-Anbieters aktiviert.</p>
+<p>Sobald sich das System in diesem Modus befindet, kann man mit folgenden Schritten fortfahren.</p>
+<h2>Im Rettungssystem: Alpine Linux herunterladen</h2>
+<p>Das <b><span class="caps">ISO</span>-Abbild</b> dient als Vorlage für die bootbare Partition die eingerichtet werden soll.<br />
+Das <b>minirootfs-Archiv</b> stellt eine Alpine Linux chroot-Umgebung mit dem notwendigen Werkzeug `setup-bootable`<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup> bereit.<br />
+Die <b>headless.apkovl</b> passt die Konfiguration so an, dass bereits beim ersten Start Fernzugriff per <span class="caps">SSH</span> möglich wird.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">wget <span class="nt">--no-check-certificate</span> <span class="se">\</span>
+        https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.2-x86_64.tar.gz <span class="se">\</span>
+        https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-virt-3.17.2-x86_64.iso <span class="se">\</span>
+        https://github.com/macmpi/alpine-linux-headless-bootstrap/raw/main/headless.apkovl.tar.gz</code></pre></figure><h2>Im Rettungssystem: Partitionen vorbereiten</h2>
+<p><em><strong>Achtung:</strong> Ab hier werden die bisherigen Inhalte des angegebenen Geräts zerstört.</em></p>
+<p>Es ist auch zu berücksichtigen, dass sich im Rettungssystem der Gerätename der Festplatte oft von dem im Normalbetrieb unterscheidet.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Diese beiden Konstanten anpassen</span>
+<span class="nv">BLOCK_DEVICE</span><span class="o">=</span>/dev/vdb
+<span class="nv">PARTITION1_MB</span><span class="o">=</span>500
+
+<span class="nv">start</span><span class="o">=</span>2048
+<span class="nv">sector_size</span><span class="o">=</span>512
+<span class="nv">part1_sectors</span><span class="o">=</span><span class="k">$((</span><span class="nv">$PARTITION1_MB</span> <span class="o">*</span><span class="m">1024</span><span class="o">*</span><span class="m">1024</span><span class="o">/</span> <span class="nv">$sector_size</span><span class="k">))</span>
+
+<span class="nb">echo</span> <span class="s2">"label: dos
+sector-size: </span><span class="nv">$sector_size</span><span class="s2">
+start=</span><span class="nv">$start</span><span class="s2">, size=</span><span class="nv">$part1_sectors</span><span class="s2">, type=b, bootable
+start=</span><span class="k">$((</span><span class="nv">$start</span> <span class="o">+</span> <span class="nv">$part1_sectors</span><span class="k">))</span><span class="s2">, type=83
+"</span> | sfdisk <span class="nv">$BLOCK_DEVICE</span>
+
+<span class="c"># Dateisystem der zweiten Partition initialisieren</span>
+mkfs.ext4 <span class="k">${</span><span class="nv">BLOCK_DEVICE</span><span class="k">}</span>2</code></pre></figure><h2>Im Rettungssystem: Temporäres Alpine Linux einrichten</h2>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Diese Konstante anpassen</span>
+<span class="nv">BLOCK_DEVICE</span><span class="o">=</span>/dev/vdb
+
+mkdir /alpine
+<span class="nb">tar </span>xzvf alpine-minirootfs-3.17.2-x86_64.tar.gz <span class="nt">-C</span> /alpine
+
+<span class="k">for </span>d <span class="k">in </span>dev sys proc tmp <span class="p">;</span> <span class="k">do </span>mount <span class="nt">--rbind</span> /<span class="nv">$d</span> /alpine/<span class="nv">$d</span> <span class="p">;</span> <span class="k">done
+
+</span>cp /etc/resolv.conf /alpine/etc/resolv.conf 
+cp /etc/network/interfaces /alpine/etc/network/interfaces
+cp alpine-virt-3.17.2-x86_64.iso /alpine/root/
+
+chroot /alpine mkfs.vfat <span class="nt">-vn</span> ALPINE <span class="k">${</span><span class="nv">BLOCK_DEVICE</span><span class="k">}</span>1
+chroot /alpine apk update
+chroot /alpine apk add alpine-conf</code></pre></figure><h2>Im Rettungssystem: Alpine Linux auf Zielgerät installieren</h2>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Diese Konstante anpassen</span>
+<span class="nv">BLOCK_DEVICE</span><span class="o">=</span>/dev/vdb
+
+chroot /alpine setup-bootable <span class="nt">-v</span> /root/alpine-virt-3.17.2-x86_64.iso <span class="k">${</span><span class="nv">BLOCK_DEVICE</span><span class="k">}</span>1
+
+mount <span class="k">${</span><span class="nv">BLOCK_DEVICE</span><span class="k">}</span>1 /mnt
+cp headless.apkovl.tar.gz /mnt/
+
+poweroff</code></pre></figure><h2>Rettungsmodus deaktivieren</h2>
+<p>An dieser Stelle schaltet man System wieder zurück in den Normalbetrieb und startet das neu installierte Alpine Linux.</p>
+<h2>Alpine Linux System konfigurieren</h2>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Diese Konstante anpassen</span>
+<span class="nv">DEVICE_NAME</span><span class="o">=</span>vda
+
+<span class="c"># System nach Wunsch konfigurieren</span>
+setup-alpine
+
+<span class="c"># Zweite Partition beim Start einhängen</span>
+<span class="nb">printf</span> <span class="s1">'\n/dev/${DEVICE}2\t/media/${DEVICE}2\text4\trw\t0 0\n'</span> <span class="o">&gt;&gt;</span> /etc/fstab
+
+<span class="c"># Public Key SSH-Rootzugang vorbereiten</span>
+mkdir /root/.ssh <span class="o">&amp;&amp;</span> touch /root/.ssh/authorized_keys
+chmod <span class="nt">-R</span> go-rwx /root/.ssh
+lbu include /root/.ssh/authorized_keys</code></pre></figure><p><strong>Änderungen dauerhaft übernehmen</strong></p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">lbu commit <span class="nt">-d</span></code></pre></figure><p><code>lbu commit</code> muss immer ausgeführt werden, wenn Änderungen dauerhaft übernommen werden sollen. Es schreibt Konfigurationsanpassungen in <strong>/media/mmcblk0p1/$<span class="caps">HOST</span>.apkovl.tar.gz</strong>.</p>
+<p>Von dieser Datei werden sie dann beim nächsten Systemstart wiederhergestellt. Das Grundsystem bleibt unverändert.</p>
+<hr />
+<p style="vertical-align:middle;" class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts#setup-bootable</p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/linux/2023/03/10/alpine-linux-fur-raspberry-pi-aufsetzen"
+                            title="Alpine Linux für Raspberry Pi aufsetzen">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/openbsd/2023/04/11/openbsd-i386-in-libvirt-qemu-slash-kvm-lauffahig-installieren"
+                            title="OpenBSD i386 in libvirt QEMU/KVM lauffähig installieren">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen"/>
+                <input type="hidden" name="post_title" value="Vorinstalliertes System durch Alpine Linux ersetzen" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/freebsd/2023/07/03/freebsd-jails-auf-neue-version-aktualisieren">FreeBSD-Jails auf neue Version aktualisieren</a><br />
+        <small><strong>July  3, 2023</strong> . FreeBSD . </small>
+    </li>
+    
+    <li><a href="/openbsd/2023/04/11/openbsd-i386-in-libvirt-qemu-slash-kvm-lauffahig-installieren">OpenBSD i386 in libvirt QEMU/KVM lauffähig installieren</a><br />
+        <small><strong>April 11, 2023</strong> . OpenBSD . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/21/vorinstalliertes-system-durch-alpine-linux-ersetzen">Vorinstalliertes System durch Alpine Linux ersetzen</a><br />
+        <small><strong>March 21, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/03/10/alpine-linux-fur-raspberry-pi-aufsetzen">Alpine Linux für Raspberry Pi aufsetzen</a><br />
+        <small><strong>March 10, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren">Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren</a><br />
+        <small><strong>April 10, 2022</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
