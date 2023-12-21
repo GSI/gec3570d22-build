@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Geb Starthilfe - Grails Functional Testing | Groovy Skills International</title>
+    <meta name="description" content="">
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Grails.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>35</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>7</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>18</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/grails/2011/07/25/geb-starthilfe-grails-functional-testing" rel="bookmark" title="Permalink zu 'Geb Starthilfe - Grails Functional Testing'">
+        Geb Starthilfe - Grails Functional Testing
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     25 July 2011 
+</div>
+
+
+    <div class="entry-content">
+        <p>Mittels <em>Unit- und Integration-Tests</em> kann die Qualität einer Grails Web-Applikation zum Großteil sichergestellt werden.</p>
+<p>Um eine Funktionalität aus Nutzersicht zu überprüfen ist eine andere Herangehensweise erforderlich: Man startet die Applikation und überprüft per Browser ob die verschiedenen Anwendungsfälle wie gewünscht durchgeführt werden können.</p>
+<p><em>Um langfristig zu gewährleisten, dass die Funktionalität erhalten bleibt, müsste man die Schritte nach jeder weiteren Code-Änderung wiederholen.</em></p>
+<p>Dies ist umständlich bis unmöglich und <strong>kann in Grails mittels Geb automatisiert werden</strong>.</p>
+<h3>Anwendungsfälle von funktionalen Tests</h3>
+<p>Es gibt unendlich viele Möglichkeiten durch eine Web-Applikation zu navigieren. Dementsprechend sinnlos ist der Versuch &#8220;möglichst Alles&#8221; zu testen.</p>
+<p>Folgende Szenarien sind aus meiner Sicht für &#8220;functional testing&#8221; interessant:</p>
+<h4>Sicherstellung von Kern-Funktionalität</h4>
+<p>Die Durchführbarkeit, zumindest jener Anwendungsfälle ohne welche die Web-Applikation nutzlos werden würde, kann gut über funktionale Tests sichergestellt werden.</p>
+<h4>Planung von Usability-Tests</h4>
+<p>Bei der Planung von Tests der Benutzerfreundlichkeit kann man den idealen Ablauf zur Lösung der Aufgabe definieren und damit sicherstellen, dass <em>zumindest</em> dieser Weg zum Zeitpunkt des Tests mit dem Teilnehmer funktionieren wird.</p>
+<h4>Regressionsvermeidung</h4>
+<p><a href="https://secure.wikimedia.org/wikipedia/en/wiki/Software_regression" title="Artikel &#39;Software Regression&#39; in der englischsprachigen Wikipedia">Regressionen</a> &#8211; für mich einer der Hauptgründe überhaupt Tests zu schreiben.</p>
+<p>Für jeden gefundenen Programmfehler wird ein Test geschrieben, welcher diesen Fehler reproduziert. Dann implementiert man die Lösung so, dass der Test erfolgreich verläuft &#8211; natürlich ohne dabei den Test zu ändern.</p>
+<p>Somit wird eine Applikation langfristig immer &#8220;besser&#8221;, da sich ein bereits gefundener Bug unmöglich erneut in das Programm einschleichen kann.</p>
+<p><!--nextpage--></p>
+<h3>Starthilfe zur Geb-Entwicklung</h3>
+<p>Wie der Titel der offiziellen Dokumentation, &#8220;The Book of Geb&#8221;, vermuten lässt, ist Geb ist umfangreich dokumentiert.</p>
+<p><em>Zumindest das <a href="http://www.gebish.org/manual/current/intro.html#introduction" title="Kapitel &#39;Introduction&#39; im &#39;Book of Geb&#39;">Einführungskapitel</a> solltest du an dieser Stelle gelesen haben.</em></p>
+<p>Eine Sammlung weiterer wichtiger Ressourcen ist am Ende dieses Artikels zusammen gefasst.</p>
+<p>Im Folgenden möchte ich auf einige <strong>Hürden und Tücken</strong> hinweisen um dir einen einfachen Einstieg in Geb zu ermöglichen.</p>
+<p><!--nextpage--></p>
+<h3>Geb-Hürde 1: Abhängigkeitskonflikt verhindert sämtliche Grails Kommandos</h3>
+<p><code>Error executing script Clean: loader constraint violation: when resolving overridden method "org.apache.xerces.jaxp.SAXParserImpl.getParser()Lorg/xml/sax/Parser;" the class loader (instance of org/codehaus/groovy/grails/cli/support/GrailsRootLoader) of the current class, org/apache/xerces/jaxp/SAXParserImpl, and its superclass loader (instance of), have different Class objects for the type org/xml/sax/Parser used in the signature</code></p>
+<h4>Umgang mit der Hürde</h4>
+<p>Diesen Fehler konnte ich durch Ausschluss der Abhängigkeit zu <code>xercesImpl</code> bei <code>selenium-htmlunit-driver</code> beheben:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/** Ausschnitt aus der Datei BuildConfig.groovy **/</span>
+<span class="c1">// ...</span>
+<span class="n">grails</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">dependency</span><span class="o">.</span><span class="na">resolution</span> <span class="o">=</span> <span class="o">{</span>
+<span class="c1">// ...</span>
+  <span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">test</span> <span class="s">"org.codehaus.geb:geb-spock:0.6.0"</span>
+
+    <span class="n">def</span> <span class="n">driverVersion</span> <span class="o">=</span> <span class="err">'</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span> <span class="c1">// slow startup if set to 'latest.release'</span>
+    <span class="n">test</span><span class="o">(</span><span class="s">"org.seleniumhq.selenium:selenium-htmlunit-driver:${driverVersion}"</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">exclude</span> <span class="err">'</span><span class="n">xml</span><span class="o">-</span><span class="n">apis</span><span class="err">'</span>
+      <span class="n">exclude</span> <span class="err">'</span><span class="n">xercesImpl</span><span class="err">'</span> <span class="c1">// IMPORTANT!</span>
+      <span class="c1">//exclude 'xmlParserAPIs'</span>
+    <span class="o">}</span>
+    <span class="n">test</span> <span class="s">"org.seleniumhq.selenium:selenium-firefox-driver:${driverVersion}"</span>
+
+    <span class="c1">// other drivers ...</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure><p>Das Problem ist im <a href="http://grails.1312388.n4.nabble.com/org-apache-xerces-jaxp-SAXParserImpl-getParser-Lorg-xml-sax-Parser-Error-trying-to-include-compile-o-td1695193.html#a1714758" title="Beitrag &#39;org.apache.xerces.jaxp.SAXParserImpl.getParser Lorg /xml/sax/Parser; Error trying to include compile &#39;org.codehaus.groovy.modules:groovyws:0.5.1&#39;&#39; auf Nabble.com">Grail &#8211; user Forum</a> erläutert.</p>
+<p><!--nextpage--></p>
+<h3>Geb-Hürde 2: Abstraktionsebenen erschweren den Einstieg</h3>
+<p>Beim Einsatz von Geb in Grails müssen viele Ebenen zusammen arbeiten:</p>
+<ul>
+	<li><strong>Grails Geb Plugin</strong></li>
+	<li><strong>Eigentliches Geb</strong></li>
+	<li><strong>Grails Testing Framework / Spock</strong></li>
+	<li><strong>Selenium WebDriver</strong></li>
+	<li><strong>Browser (HtmlUnit, Firefox, Chromium, IE)</strong></li>
+</ul>
+<p>Schwierigkeiten sind vor allem beim Grails Plugin (aufgrund der mangelhaften Dokumentation) und den Browsern oder &#8220;Browser-Drivers&#8221; wahrscheinlich.</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Um das Grails Plugin möglichst schnell verstehen zu lernen ist <a href="http://ldaley.com/" title="Persönliche Website von Luke Daley">Luke Daley&#8217;s</a> <a href="https://github.com/geb/geb-example-grails/tree/1b5dc3f71dac6786377d5cbfe46604b910f92046/test/functional" title="Projekt &#39;geb-example-grails&#39; auf GitHub.com">Beispielprojekt auf GitHub</a> hilfreich.</p>
+<p>Übernimm am besten die Beispieldateien in dein Projekt und passe sie dann entsprechend an.</p>
+<p><!--nextpage--></p>
+<h3>Geb-Hürde 2: Unzureichende Spezifizierung erschwert die Identifikation</h3>
+<p>Um innerhalb eines Tests überprüfen zu können, auf welcher Seite sich Geb gerade befindet, benötigt es gewisse Anhaltspunkte. Die Summe der Anhaltspunkte muss die jeweilige Seiten korrekt und vor allem eindeutig identifizieren.</p>
+<p>Im oben genannten Beispielprojekt kannst du anhand der <code>static at</code>-Deklarationen erkennen, dass die einzelnen Pages hauptsächlich über ihren Titel identifiziert werden.</p>
+<p>Oft reicht dies aus.</p>
+<p><em>Spätestens bei einer mehrsprachigen Applikation schlägt es in dieser Form allerdings fehl.</em></p>
+<p>Das entsprechende Stacktrace ist wenig hilfreich. Unter anderem fehlt ein Hinweis auf welcher Seite man sich denn &#8211; anstelle der erwarteten &#8211; befindet.</p>
+<pre><code>Condition not satisfied: at LoginPage | false</code>
+
+<code>junit.framework.AssertionFailedError: Condition not satisfied:</code>
+
+<code>at LoginPage
+|
+false</code></pre>
+<p>Versäumst du die eindeutige Definition, öffnet das also viele Fehlerquellen.</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Es ist also sinnvoll, eine Seite über zusätzliche Elemente zu identifizieren.</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="n">at</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="c1">// heading, ...</span>
+  <span class="n">title</span> <span class="o">=~</span> <span class="o">/(?</span><span class="n">i</span><span class="o">)</span><span class="n">melde</span><span class="o">/</span>
+  <span class="err">$</span><span class="o">(</span> <span class="s">"input.loginbtn"</span><span class="o">,</span> <span class="nl">id:</span><span class="err">'</span><span class="n">loginbtn</span><span class="err">'</span><span class="o">).</span><span class="na">value</span><span class="o">()</span> <span class="o">=~</span> <span class="o">/(?</span><span class="n">i</span><span class="o">)</span><span class="n">anmelden</span><span class="o">/</span>
+<span class="o">}</span></code></pre></figure><p><!--nextpage--></p>
+<h3>Geb-Hürde 3: jQuery 1.6 wird in HtmlUnit fehlerhaft ausgeführt</h3>
+<p>Bei funktionialen Tests wird ein am System <em>verfügbarer</em> Browser gesteuert.</p>
+<p>Man sieht also beispielsweise das Firefox-Fenster in welchem die definierten Anweisungen durchlaufen werden.</p>
+<p>Andererseits fungiert auch HtmlUnit als Browser, bietet allerdings die Möglichkeit die Äblaufe im Hintergrund vorzunehmen.</p>
+<p><em>Aufgrunddessen ist HtmlUnit für Build-Automation die erste Wahl.</em></p>
+<p>Verwendet die zu testende Applikation jQuery, kommt es bei den aktuellen Versionen (1.6.x) zu einem Fehler:</p>
+<p><code>The data necessary to complete this operation is not yet available.</code></p>
+<p>In <a href="http://steveliles.blogspot.com/2011/05/jquery-htmlunit-runtimeerror-messages.html" title="Artikel &#39;JQuery + HtmlUnit = runtimeError messages galore&#39; von Steve Liles">einem Blogbeitrag</a> von Steve Liles ist die Ursache ausführlich beschrieben.</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Um das Problem in unserem Fall zu umgehen muss die Deklaration von <code>driver</code> in der Datei <code>GebConfig.groovy</code> so geändert werden, dass ein anderer Browser verwendet wird. Zum Beispiel:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">def</span> <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">(</span><span class="n">BrowserVersion</span><span class="o">.</span><span class="na">FIREFOX_3_6</span><span class="o">)</span> <span class="c1">// fails if BrowserVersion is left to the default value</span></code></pre></figure><p><!--nextpage--></p>
+<h3>Geb-Hürde 4: Fehler der Browser und Browser-Driver wirken sich im Test aus</h3>
+<p>Durch die Möglichkeit, verschiedene Browser automatisch steuern zu lassen, wirken sich die Eigenheiten und Bugs der jeweiligen Browser auf unsere Tests aus.</p>
+<p>Zum Beispiel gibt es bei der Verwendung von Firefox scheinbar ein Problem beim Absenden von Formularen mittels <span class="caps">ENTER</span> <a href="https://code.google.com/p/selenium/issues/detail?id=2079#c1" title="Selenium Issue 2079: using .SendKeys Keys.Enter on a form submit button with Firefox RemoteWebDriver doesn&#39;t submit the form"><sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup></a>, welches bei der Nutzung des <em>FirefoxDriver</em> auftritt.</p>
+<p>Mit HtmlUnit hingegen funktioniert das Senden wie erwartet.</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Im Zweifelsfall ist es daher sinnvoll, die Test&#8217;s mit unterschiedlichen Browsern laufen zu lassen. Die entsprechenden Befehle sind als Kommentare in der <code>GebConfig.groovy</code> Beispieldatei vermerkt.</p>
+<p><!--nextpage--></p>
+<h3>Geb-Hürde 5: Mehrsprachigkeit erschwert das Finden von Elementen</h3>
+<p>Standardmäßig stellt Grails die Sprache einer Applikation entsprechend der Sprachkonfiguration im Browser des Besuchers ein.</p>
+<p>Wenn also Firefox auf Deutsch und HtmlUnit auf Englisch eingestellt ist, fehlen möglicherweise Seiteninhalte, welche zur Identifikation oder Navigation einer Seite genutzt werden.</p>
+<p>Die bereits früher im Artikel beschriebene Definition würde auf jene Seiten zutreffen, welche &#8220;melde&#8221; (in Groß-, Klein- oder gemischter Schreibweise) enthalten:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">title</span> <span class="o">=~</span> <span class="o">/(?</span><span class="n">i</span><span class="o">)</span><span class="n">melde</span><span class="o">/</span></code></pre></figure><p>Allerdings ist der Inhalt des Title-Elements auf Englisch wahrscheinlich anders.</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Um auch die Zeichenkette &#8220;Login&#8221; gelten zu lassen, muss die Definition entsprechend angepasst werden:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">title</span> <span class="o">=~</span> <span class="o">/(?</span><span class="n">i</span><span class="o">)</span><span class="n">melde</span><span class="o">|(?</span><span class="n">i</span><span class="o">)</span><span class="n">login</span><span class="o">/</span></code></pre></figure><p>Alternativ könnte man dafür sorgen, dass alle Browser-Driver die selbe Sprache anfordern. Ich habe darauf verzichtet eine Lösung dafür zu suchen, wäre aber an einer interessiert.</p>
+<p><!--nextpage--></p>
+<h3>Geb-Hürde 6: Die Verwendung von Variablen führt zu Fehlern</h3>
+<p>In einer Spezifikation hatte ich versucht die Werte über eine Variable zu setzen:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">def</span> <span class="n">subject</span> <span class="o">=</span> <span class="s">"Subject for testing the contact form via Geb"</span>
+<span class="c1">// ... some logic</span>
+<span class="n">contactForm</span><span class="o">.</span><span class="na">subject</span> <span class="o">=</span> <span class="n">subject</span></code></pre></figure><p>Offensichtlich versucht Geb in diesem Fall ein Element namens <em>subject</em> auf der Website zu finden, anstatt die deklarierte Variable zu verwenden:</p>
+<p>@No such property: subject for class: geb.navigator.EmptyNavigator</p>
+<p>groovy.lang.MissingPropertyException: No such property: subject for class: geb.navigator.EmptyNavigator<br />
+at geb.navigator.EmptyNavigator.propertyMissing(EmptyNavigator.groovy:151)<br />
+at geb.navigator.Navigator.getProperty(Navigator.groovy)@</p>
+<h4>Umgang mit der Hürde</h4>
+<p>Ob und wie es möglich ist, Variablen zu nutzen ist mir derzeit unbekannt.</p>
+<p>Wenn du auf Variablen verzichten kannst, weise einfach Strings zu.</p>
+<p><!--nextpage--></p>
+<h3>Ressourcen</h3>
+<p>Folgende Ressourcen sind im Zusammenhang mit Geb hilfreich.</p>
+<h4>Dokumentation &amp; Beispiele</h4>
+<ul>
+	<li><a href="http://www.gebish.org/manual/current/" title="Offizielle Dokumentation zu Geb">The Book Of Geb</a></li>
+	<li><a href="http://www.gebish.org/manual/current/navigator.html#accessing_tag_name_attributes_text_and_classes">4.8 Accessing tag name, attributes, text and classes</a></li>
+	<li><a href="http://www.gebish.org/manual/current/navigator.html#sending_keystrokes">4.9 Sending keystrokes</a></li>
+	<li><a href="https://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/Keys.html">org.openqa.selenium.Keys JavaDoc</a></li>
+</ul>
+<ul>
+	<li><a href="https://github.com/geb/geb-example-grails/tree/1b5dc3f71dac6786377d5cbfe46604b910f92046/test/functional">GitHub geb-example-grails</a></li>
+	<li><a href="http://blog.springsource.com/2010/08/28/the-future-of-functional-web-testing/" title="Artikel &#39;The future of functional web testing?&#39; im SpringSource Team Blog">The future of functional web testing?</a></li>
+</ul>
+<h4>Verwendete Technologien</h4>
+<ul>
+	<li><a href="http://www.grails.org/doc/latest/guide/9.%20Testing.html#9.3%20Functional%20Testing">Grails Dokumentation: 9.3 Functional Testing</a></li>
+	<li><a href="https://code.google.com/p/selenium/wiki/HtmlUnitDriver">HtmlUnitDriver Information about the HtmlUnit Driver</a></li>
+	<li><a href="https://selenium.googlecode.com/svn/trunk/docs/api/java/index.html?org/openqa/selenium/htmlunit/HtmlUnitDriver.html">org.openqa.selenium.htmlunit.HtmlUnitDriver JavaDoc</a></li>
+	<li><a href="http://htmlunit.sourceforge.net/apidocs/index.html">HtmlUnit <span class="caps">API</span></a></li>
+	<li><a href="http://htmlunit.sourceforge.net/apidocs/index.html?com/gargoylesoftware/htmlunit/BrowserVersion.html">com.gargoylesoftware.htmlunit.BrowserVersion JavaDoc</a></li>
+</ul>
+<h4>Fehlerdetails</h4>
+<ul>
+	<li><a href="http://grails.1312388.n4.nabble.com/org-apache-xerces-jaxp-SAXParserImpl-getParser-Lorg-xml-sax-Parser-Error-trying-to-include-compile-o-tp1695193p1714758.html">Re: org.apache.xerces.jaxp.SAXParserImpl.getParser Lorg /xml/sax/Parser; Error trying to include compile &#8216;org.codehaus.groovy.modules:groovyws:0.5.1&#8217;</a></li>
+	<li><a href="http://steveliles.blogspot.com/2011/05/jquery-htmlunit-runtimeerror-messages.html">JQuery + HtmlUnit = runtimeError messages galore</a></li>
+	<li><a href="https://code.google.com/p/selenium/issues/detail?id=2079">Selenium Issue 2079: using .SendKeys Keys.Enter  on a form submit button with Firefox RemoteWebDriver doesn&#8217;t submit the form</a></li>
+</ul>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/wordpress/2011/06/30/wordpress-anleitung-einen-artikel-als-ereignis-markieren"
+                            title="WordPress Anleitung: Einen Artikel als Ereignis markieren">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/freebsd/2011/08/10/liste-kurzlich-installierter-ports-ausgeben"
+                            title="Liste kürzlich installierter Ports ausgeben">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/grails/2011/07/25/geb-starthilfe---grails-functional-testing"/>
+                <input type="hidden" name="post_title" value="Geb Starthilfe - Grails Functional Testing" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/grails/2011/07/25/geb-starthilfe-grails-functional-testing"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Android auf SHIFT6mq parallel zu postmarketOS installieren</a><br />
+        <small><strong>December  8, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a><br />
+        <small><strong>December  7, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Platz aus Android-Benutzerpartition für postmarketOS freigeben</a><br />
+        <small><strong>December  6, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren">postmarketOS auf SHIFT6mq Smartphone installieren</a><br />
+        <small><strong>December  5, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen">Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen</a><br />
+        <small><strong>October  8, 2023</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#Geb-ref">
+    	  <sub>1</sub> Geb
+    	</a></li>
+     
+    	<li><a href="/tags.html#Groovy-ref">
+    	  <sub>2</sub> Groovy
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>

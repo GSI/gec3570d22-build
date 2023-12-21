@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Linux.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>35</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>7</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>18</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren" rel="bookmark" title="Permalink zu 'Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren'">
+        Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     10 April 2022 
+</div>
+
+
+    <div class="entry-content">
+        <p>Die Anleitung(1) zur <strong>Konfiguration einer Thin-Client Umgebung mittels X2Go</strong> ist unnötig komplex und kann mit Hilfe der richtigen Werkzeuge drastisch vereinfacht werden.</p>
+<p>Hier sind die notwendigen Schritte erläutert um <b>Void-Linux</b> als Server zu nutzen. Dieser stellt alles Notwendige bereit um Clients über das Netzwerk zu booten und ihn dann so zu nutzen, als wäre der Benutzer am Server lokal eingeloggt:</p>
+<ul>
+	<li>Ein <b><span class="caps">DHCP</span>-Dienst</b> weist dem Client eine <em>IP Adresse</em> zu und teilt ihm mit wo die Inhalte für den weiteren Bootvorgang zu finden sind.</li>
+	<li>Ein <b><span class="caps">TFTP</span>-Dienst</b> stellt dem Client einen <em>Bootloader</em> zur Verfügung, welcher im weiteren Schritt Kernel und Init-Umgebung laden kann.</li>
+	<li>Ein <b><span class="caps">HTTP</span>-Dienst</b> stellt dem Client letztendlich Kernel, Init-Umgebung und ein <em>vollständiges Betriebssystem-Abbild</em> zur Verfügung.</li>
+	<li>Zu der am Server installierten grafischen Oberfläche <b><span class="caps">XFCE</span></b> verbindet sich der Client am Ende des Startvorgangs via <em>X2Go-Client</em>.</li>
+</ul>
+<p>In diesem Beispiel wird in einer bereits vorbereiteten <b>Void-Linux</b> Installation(2) die Netzwerk-Schnittstelle <em>eth1</em> als <code>192.168.0.3/24</code> konfiguriert.</p>
+<p>Am Server sollten dafür <em>mindestens 10 GB Festplattenkapazität</em> zur Verfügung stehen und Clients sollten über <em>mindestens 1 GB <span class="caps">RAM</span></em> verfügen.</p>
+<h2>Server für X2Go-Verbindungen vorbereiten</h2>
+<p><strong>Pakete installieren und X2Go-Server vorbereiten</strong></p>
+<pre>
+xbps-install -Suy dhcp syslinux tftpd-hpa darkhttpd xfce4 x2goserver curl dracut-network binutils squashfs-tools
+ln -s /etc/sv/x2gocleansessions /var/service/
+x2godbadmin --createdb
+
+# X2Go-Verbindung zu Desktopumgebung von Void-Clients ermöglichen
+sed -i 's#/etc/redhat-release ]#/etc/redhat-release ] || [ -d /usr/share/void-artwork ]#g' /etc/x2go/Xsession
+</pre>
+<p><strong><span class="caps">XFCE</span> ohne Compositor starten</strong></p>
+<p>Mit aktivem Compositor ist <span class="caps">XFCE</span> in X2Go quasi unbrauchbar(3). Er kann aber einfach deaktiviert werden:</p>
+<pre>
+cat &gt;&gt; /usr/local/bin/xfce &lt;&lt; EOF
+#!/bin/sh
+/usr/bin/xfconf-query -c xfwm4 -p /general/use_compositing -s false
+/usr/bin/xfce4-session
+EOF
+
+chmod +x /usr/local/bin/xfce
+</pre>
+<p><strong>Netzwerk-Schnittstelle konfigurieren</strong></p>
+<pre>
+cat &gt;&gt; /etc/rc.local &lt;&lt; EOF
+ip addr add 192.168.0.3/24 brd 192.168.0.255 dev eth1
+ip link set eth1 up alias "'Network for Thin-Clients'"
+EOF
+
+/etc/rc.local
+</pre>
+<h2>Dienste einrichten</h2>
+<p>Die Dienste stellen die eingangs genannten Boot-Schritte zur Verfügung: <span class="caps">DHCP</span> &gt; <span class="caps">TFTP</span> &gt; <span class="caps">HTTP</span>.</p>
+<p><strong><span class="caps">DHCP</span></strong></p>
+<pre>
+cat &gt;&gt; /etc/dhcpd.conf &lt;&lt; EOF
+authoritative;
+subnet 192.168.0.0 netmask 255.255.255.0 {
+    range 192.168.0.20 192.168.0.250;
+    option domain-name "local";
+    option domain-name-servers 192.168.0.3;
+    option broadcast-address 192.168.0.255;
+    option routers 192.168.0.3;
+    option subnet-mask 255.255.255.0;
+    option root-path "/";
+    filename "lpxelinux.0";
+}
+EOF
+
+cp -a /etc/sv/dhcpd4 /etc/sv/dhcpd4-eth1
+sed -i 's#dhcpd4.pid}$#dhcpd4.pid} eth1#g' /etc/sv/dhcpd4-eth1/run
+ln -s /etc/sv/dhcpd4-eth1 /var/service/dhcpd4-eth1
+</pre>
+<p><strong><span class="caps">TFTP</span></strong></p>
+<pre>
+# PXE Netzwerk-Bootloader anbieten
+cp -a /usr/lib/syslinux/ldlinux.c32 /usr/lib/syslinux/lpxelinux.0 /var/lib/tftp/
+
+mkdir /var/lib/tftp/pxelinux.cfg
+cat &gt;&gt; /var/lib/tftp/pxelinux.cfg/default &lt;&lt; EOF
+DEFAULT x2go-tce
+
+LABEL x2go-tce
+TIMEOUT 50
+MENU LABEL X2Go-TCE
+KERNEL http://192.168.0.3/vmlinuz
+INITRD http://192.168.0.3/initrd.img
+APPEND root=live:http://192.168.0.3/void.squashfs ro rd.live.image
+EOF
+
+ln -s /etc/sv/tftpd-hpa /var/service/
+</pre>
+<h3><span class="caps">HTTP</span></h3>
+<pre>
+# Netzwerk-Bootfähiges System bereit stellen
+cp /boot/vmlinuz-`uname -r` /srv/www/darkhttpd/vmlinuz
+dracut --omit "bash drm btrfs crypt dmraid lvm kernel-modules kernel-modules-extra mdraid nvdimm qemu cifs lunmask nfs resume terminfo usrmount virtfs" --add "livenet" /srv/www/darkhttpd/initrd.img
+chmod +r /srv/www/darkhttpd/initrd.img
+
+ln -s /etc/sv/darkhttpd /var/service/
+</pre>
+<p>An dieser Stelle sind alle Dienste des Servers vollständig konfiguriert. Es fehlt lediglich das Betriebssystem-Abbild welches der <span class="caps">HTTP</span>-Dienst dem Client bereit stellt.</p>
+<p>Das Erstellen des Abbilds ist in folgendem Abschnitt erläutert.</p>
+<hr/>
+<h2>Betriebssystem-Abbild für den Thin-Client vorkonfigurieren</h2>
+<p>Über https://voidlinux.org/download/ kann das tar-Archiv eines Void-Grundsystems gefunden werden.</p>
+<p><strong>Grundsystem installieren</strong></p>
+<pre>
+URL=https://alpha.de.repo.voidlinux.org/live/current/void-x86_64-musl-ROOTFS-20210930.tar.xz
+cd ~
+curl -o rootfs.tar.xz "$URL"
+mkdir ~/thin &amp;&amp; tar xvf rootfs.tar.xz -C ~/thin
+
+mount --rbind /sys  ~/thin/sys  &amp;&amp; mount --make-rslave ~/thin/sys
+mount --rbind /dev  ~/thin/dev  &amp;&amp; mount --make-rslave ~/thin/dev
+mount --rbind /proc ~/thin/proc &amp;&amp; mount --make-rslave ~/thin/proc
+
+cp /etc/resolv.conf ~/thin/etc/
+echo "client" &gt; ~/thin/etc/hostname
+
+chroot ~/thin/ /bin/xbps-install -Suy xbps
+chroot ~/thin/ /bin/xbps-install -uy
+chroot ~/thin/ /bin/xbps-install -y base-system xorg-video-drivers xorg-fonts xorg-input-drivers xorg-minimal x2goclient
+chroot ~/thin/ /bin/xbps-remove -y base-voidstrap
+rm -Rf ~/thin/var/cache/xbps
+
+chroot ~/thin/ /bin/passwd
+</pre>
+<p><strong>X2Go-Verbindung definieren</strong></p>
+<pre>
+chroot ~/thin/ /bin/mkdir /root/.x2goclient/
+
+cat &gt;&gt; ~/thin/root/.x2goclient/sessions &lt;&lt; EOF
+[server]
+clipboard=none
+command=xfce
+fullscreen=true
+host=192.168.0.3
+name=srv
+icon=/usr/share/void-artwork/void-logo.svg
+user=
+EOF
+</pre>
+<p><strong>Schritte des Systemstarts automatisieren</strong></p>
+<pre>
+# root automatisch einloggen
+sed -i 's#GETTY_ARGS=.*#GETTY_ARGS="--autologin root --noclear"#g' ~/thin/etc/sv/agetty-tty1/conf
+
+# X auf tty0 automatisch starten
+echo '[ `fgconsole` -eq 1 ] &amp;&amp; startx' &gt; ~/thin/root/.profile
+
+# X2Go-Client automatisch starten
+echo 'exec x2goclient --thinclient --session=srv --add-to-known-hosts --no-menu --no-session-edit --branding=/dev/null' &gt; ~/thin/root/.xinitrc
+
+# Herunterfahren per Ausschaltknopf ermöglichen
+chroot ~/thin/ /bin/ln -s /etc/sv/acpid /etc/runit/runsvdir/default/acpid
+</pre>
+<h2>Betriebssystem-Abbild als SquashFS verpacken</h2>
+<p><strong>Spezielle Dateisysteme aus chroot aushängen</strong></p>
+<pre>umount --recursive ~/thin/sys ~/thin/dev ~/thin/proc</pre>
+<p><strong>Betriebsystem-Abbild generieren und in <span class="caps">HTTP</span>-Server erstellen</strong></p>
+<pre>mksquashfs ~/thin /srv/www/darkhttpd/void.squashfs</pre>
+<p>An dieser Stelle sollte ein Client über das Netzwerk via <span class="caps">PXE</span> booten können.</p>
+<p>Im letzten Abschnitt sei noch erläutert, wie man prüft ob jeder der Dienste die notwendigen Dateien korrekt ausliefert.</p>
+<hr/>
+<h2>Konfiguration überprüfen</h2>
+<p><strong>Antowort des <span class="caps">DHCP</span>-Dienstes prüfen</strong></p>
+<pre>
+dhcpcd -T eth1
+</pre>
+<p><strong>Verfügbarkeit der Dateien des <span class="caps">TFTP</span>-Dienstes prüfen</strong></p>
+<pre>
+cd `mktemp -d`
+tftp 192.168.0.3 -c get pxelinux.cfg/default
+tftp 192.168.0.3 -c get vmlinuz 
+tftp 192.168.0.3 -c get initrd.img
+stat default vmlinuz initrd.img
+</pre>
+<p><strong>Verfügbarkeit der Dateien des <span class="caps">HTTP</span>-Dienstes prüfen</strong></p>
+<pre>
+curl http://192.168.0.3/void.squashfs -o /dev/null
+</pre>
+<hr />
+<p style="vertical-align:middle;" class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> <a href="https://wiki.x2go.org/doku.php/doc:howto:tce">X2Go-ThinClientEditon-Live Installation Guide</a></p>
+<p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> <a href="https://docs.voidlinux.org/installation/index.html">Void-Handbook: Installation</a></p>
+<p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> <a href="https://wiki.x2go.org/doku.php/doc:de-compat#always_compatible_and_no_workarounds_required">X2Go Desktop Environment Compatibility</a></p>
+<p class="footnote" id="fn4"><a href="#fnr4"><sup>4</sup></a> <a href="https://docs.voidlinux.org/installation/guides/chroot.html#the-rootfs-method">Void-Handbook: Installation via the <span class="caps">ROOTFS</span> Method</a></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/allgemein/2022/04/03/lineageos-auf-samsung-galaxy-tab3-tablet-installieren"
+                            title="LineageOS auf Samsung Galaxy Tab3 Tablet installieren">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/linux/2023/03/10/alpine-linux-fur-raspberry-pi-aufsetzen"
+                            title="Alpine Linux für Raspberry Pi aufsetzen">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren"/>
+                <input type="hidden" name="post_title" value="Void-Linux als X2Go-ThinClient/-Server Lösung konfigurieren" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/linux/2022/04/10/void-linux-als-x2go-thinclient-slash-server-losung-konfigurieren"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Android auf SHIFT6mq parallel zu postmarketOS installieren</a><br />
+        <small><strong>December  8, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a><br />
+        <small><strong>December  7, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Platz aus Android-Benutzerpartition für postmarketOS freigeben</a><br />
+        <small><strong>December  6, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren">postmarketOS auf SHIFT6mq Smartphone installieren</a><br />
+        <small><strong>December  5, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen">Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen</a><br />
+        <small><strong>October  8, 2023</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bei Unerreichbarkeit von Apache Tomcat automatisch eine selbst erstellte HTML-Seite darstellen | Groovy Skills International</title>
+    <meta name="description" content="">
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Grails.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>35</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>7</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>18</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/grails/2011/01/29/bei-unerreichbarkeit-von-apache-tomcat-automatisch-eine-selbst-erstellte-html-seite-darstellen" rel="bookmark" title="Permalink zu 'Bei Unerreichbarkeit von Apache Tomcat automatisch eine selbst erstellte HTML-Seite darstellen'">
+        Bei Unerreichbarkeit von Apache Tomcat automatisch eine selbst erstellte HTML-Seite darstellen
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     29 January 2011 
+</div>
+
+
+    <div class="entry-content">
+        <p>Während eines &#8220;Redeploys&#8221; ist eine Applikation unerreichbar.</p>
+<p>Hat man <a title="Artikel &quot;Apache HTTPD &amp; Apache Tomcat 6 per AJP Connector verbinden (Ubuntu 10.04.1)&quot;" href="http://experience.life.at/2010/09/apache_httpd_und_apache_tomcat_6_per_ajp_connector_verbinden_ubuntu_10-04/">Apache <span class="caps">HTTPD</span> mit Tomcat verbunden</a>, kann man diese Situationen und sogar den Ausfall des Apache Tomcat Dienstes elegant behandeln.</p>
+<p>Die <a title="Erklärung zu &quot;CPing/CPong&quot; im Abschnitt &quot;JK Timeout Attributes&quot; im offiziellen Apache Tomcat Connector Handbuch" href="http://tomcat.apache.org/connectors-doc/generic_howto/timeouts.html#CPing/CPong">offizielle Dokumentation zu mod_jk</a> definiert empfohlene Timeout-Werte. Bleibt eine Anfrage seitens Tomcat innerhalb der definierten Zeitfenster unbeantwortet, kann Apache <span class="caps">HTTPD</span> eine alternative Seite mit entsprechenden Hinweisen ausliefern.</p>
+<p>Anstatt Besuchern kryptische und abschreckende Standard-Fehlermeldungen anzuzeigen, kann eine_ frei gestaltete Seite mit Hinweisen zum weiteren Vorgehen_ präsentiert werden. Dabei können alle Funktionalitäten der Apache <span class="caps">HTTPD</span> Installation (<span class="caps">CSS</span>, <span class="caps">PHP</span>, &#8230;) genutzt werden. Eine einfache (X)<span class="caps">HTML</span> Seite ist oft ausreichend.<br />
+<h2>Apache <span class="caps">HTTPD</span>: Die ErrorDocument Direktiven konfigurieren</h2><br />
+Welche Seite in einem solchen Fehlerfall angezeigt wird, definiert man in der <em>Apache <span class="caps">HTTPD</span> Konfigurationsdatei</em> über <a title="Dokumentation zu &quot;ErrorDocument&quot; im Apache HTTPD Handbuch" href="http://httpd.apache.org/docs/2.2/de/mod/core.html#errordocument">die ErrorDocument-Direktive</a>.</p>
+<p>Im folgenden Beispiel wird in der Datei <em>/etc/apache2/conf.d/localized-error-pages</em> für <a title="Abschnitt &quot;Status Code Definitions&quot; aus RFC 2616 (&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;)" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">einige der möglichen Statuscodes</a> je eine <span class="caps">HTML</span>-Seite definiert.</p>
+<figure class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="c"># 404 - Not Found</span>
+<span class="nc">ErrorDocument</span> 404 /404.shtml
+<span class="c"># 500 - Internal Server Error</span>
+<span class="nc">ErrorDocument</span> 500 /500.shtml
+<span class="c"># 503 - Service Unavailable</span>
+<span class="nc">ErrorDocument</span> 503 /503.shtml</code></pre></figure><p>Damit diese Seiten auch für Tomcat angezeigt werden, muss die Konfiguration des entsprechenden <a title="Erklärung zu &quot;workers.properties configuration&quot; im offiziellen Apache Tomcat Connector Handbuch" href="http://tomcat.apache.org/connectors-doc/reference/workers.html">Workers</a> angepasst werden. Nach Befolgen der <a title="Artikel &quot;Apache HTTPD &amp; Apache Tomcat 6 per AJP Connector verbinden (Ubuntu 10.04.1)&quot;" href="http://experience.life.at/2010/09/apache_httpd_und_apache_tomcat_6_per_ajp_connector_verbinden_ubuntu_10-04/">Anleitung zum Verbinden von Tomcat &amp; <span class="caps">HTTPD</span></a>, müsste der worker als &#8220;<strong>ajp13_worker</strong>&#8221; benannt sein.</p>
+<h2>Apache Tomcat: Die worker.properties konfigurieren</h2>
+<p>Demnach sind folgende Werte in <em>/etc/libapache2-mod-jk/workers.properties</em> einzutragen:</p>
+<figure class="highlight"><pre><code class="language-apache" data-lang="apache">worker.ajp13_worker.ping_mode=A
+worker.ajp13_worker.ping_timeout=10000
+worker.ajp13_worker.fail_on_status=500,503</code></pre></figure><p>Die ersten beiden Zeilen definieren die Timeouts. Die dritte Zeile definiert bei welchen Statuscodes der Worker als <em>&#8220;versagt&#8221;</em> (failed) betrachtet wird. In der offiziellen Dokumentation können <a title="Abschnitt &quot;Advanced Worker Directives&quot; im Apache Tomcat Connector Reference Guide" href="http://tomcat.apache.org/connectors-doc/reference/workers.html#Advanced%20Worker%20Directives">Details zu fail_on_status</a> nachgelesen werden.<br />
+<h2>Die Konfiguration testen</h2><br />
+Hat man beispielsweise die Datei <strong>503.shtml</strong> entsprechend erstellt und abgelegt, kann man testen, ob sie korrekt angezeigt wird.</p>
+<p>Dazu liest man die Apache <span class="caps">HTTPD</span> Konfiguration neu ein, stoppt Tomcat und versucht die entsprechende Applikation <em>per Browser</em> zu erreichen.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>service apache2 reload
+<span class="nb">sudo </span>service tomcat6 stop</code></pre></figure><p><em>Hinweis: Um <a class="colorbox-link" title="Artikel &quot;Single Point of Failure&quot; in der deutschsprachigen Wikipedia" href="https://secure.wikimedia.org/wikipedia/de/wiki/Single_Point_of_Failure">Server Single Points of Failure</a> zu vermeiden bietet mod_jk sehr interessante Möglichkeiten um im Fehlerfall oder auch bei unterschiedlichen Zugriffen auf andere Server umzuleiten. Neben einer Redundanz welche die Verfügbarkeit der Dienste absichert kann damit eine effiziente Lastverteilung erreicht werden.</em></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/allgemein/2011/01/19/tiny-tiny-rss-als-standard-feedreader-in-firefox-einrichten"
+                            title="Tiny Tiny RSS als Standard-Feedreader in Firefox einrichten">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/linux/2011/03/10/suchmaschinenoptimierung-ubuntu-style-buchstaben-im-title-zahlen"
+                            title="Suchmaschinenoptimierung Ubuntu Style: Buchstaben im Title zählen">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/grails/2011/01/29/bei-unerreichbarkeit-von-apache-tomcat-automatisch-eine-selbst-erstellte-html-seite-darstellen"/>
+                <input type="hidden" name="post_title" value="Bei Unerreichbarkeit von Apache Tomcat automatisch eine selbst erstellte HTML-Seite darstellen" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/grails/2011/01/29/bei-unerreichbarkeit-von-apache-tomcat-automatisch-eine-selbst-erstellte-html-seite-darstellen"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Android auf SHIFT6mq parallel zu postmarketOS installieren</a><br />
+        <small><strong>December  8, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a><br />
+        <small><strong>December  7, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Platz aus Android-Benutzerpartition für postmarketOS freigeben</a><br />
+        <small><strong>December  6, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren">postmarketOS auf SHIFT6mq Smartphone installieren</a><br />
+        <small><strong>December  5, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen">Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen</a><br />
+        <small><strong>October  8, 2023</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#AJP-ref">
+    	  <sub>2</sub> AJP
+    	</a></li>
+     
+    	<li><a href="/tags.html#Apache-ref">
+    	  <sub>2</sub> Apache
+    	</a></li>
+     
+    	<li><a href="/tags.html#HTTPD-ref">
+    	  <sub>2</sub> HTTPD
+    	</a></li>
+     
+    	<li><a href="/tags.html#Tomcat-ref">
+    	  <sub>3</sub> Tomcat
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2023 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
