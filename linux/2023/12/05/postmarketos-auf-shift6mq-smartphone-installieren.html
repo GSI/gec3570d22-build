@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>postmarketOS auf SHIFT6mq Smartphone installieren | Groovy Skills International</title>
+    
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Linux.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>35</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>7</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>18</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren" rel="bookmark" title="Permalink zu 'postmarketOS auf SHIFT6mq Smartphone installieren'">
+        postmarketOS auf SHIFT6mq Smartphone installieren
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     05 December 2023 
+</div>
+
+
+    <div class="entry-content">
+        <p><em>Dies ist <strong>Artikel 1</strong> zur Einrichtung eines SHIFT6mq mit postmarketOS. Weitere Artikel der Serie sind in den Fußnoten verlinkt.<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup> <sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup></em></p>
+<p>Das SHIFT6mq ist zum Zeitpunkt des Verfassens dieser Anleitung eines der leistungsfähigsten für postmarketOS geeigneten Mobiltelefone.</p>
+<p>Zwar fehlt einerseits noch die Unterstützung<sup class="footnote" id="fnr6"><a href="#fn6">6</a></sup> für diverse Hardwarekomponenten wie Kamera oder <span class="caps">GPS</span>, andererseits schafft man sich mit einem echten Linux-Telefon maximale Flexibilität &#8211; die Grundlage für hocheffiziente Abläufe.</p>
+<h2>Ziele: Privatsphäre und Multi-Boot</h2>
+<p>Bei dieser Anleitung ist darauf geachtet, dass das Telefon niemals mit dem Internet zu verbinden, bevor es von potentiell verräterischer Software befreit ist.</p>
+<p>Damit soll vermieden werden, dass etwaige Gegenstellen das Telefon mit dem initialen Standort und somit einem bestimmten Personenkreis verknüpfen (beispielsweise durch Verknüpfen der <span class="caps">IMEI</span><sup class="footnote" id="fnr7"><a href="#fn7">7</a></sup> mit der IP).</p>
+<p>Installiert wird in eine der beiden &#8220;Superpartitionen&#8221;, sodass in der anderen ein anderes Betriebssystem wie zum Beispiel ein <span class="caps">AOSP</span>-Android<sup class="footnote" id="fnr8"><a href="#fn8">8</a></sup> den benötigten Platz finden kann.</p>
+<p><b>Warnung: Das bestehende System wird restlos entfernt und die Benutzerdaten gehen verloren.</b></p>
+<p><b>Warnung: Android <span class="caps">OTA</span>-Updates benötigen einen ungenutzten Slot zur Installation neuer Versionen.<sup class="footnote" id="fnr9"><a href="#fn9">9</a></sup> Da postmarketOS diesen belegen wird, können Updates dann nur noch manuell (per PC/<span class="caps">USB</span>) durchgeführt werden. Details werden in einem Folgeartikel erläutert.<sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup></b></p>
+<h2>Voraussetzungen</h2>
+<ul>
+	<li>Ausgegangen wird von einem SHIFT6mq in Werkszustand, mit vorinstalliertem und funktionstüchtigem Android (&#8220;ShiftOS&#8221;).</li>
+	<li>Das Telefon muss per <span class="caps">USB</span> mit dem Linux-PC verbunden sein.</li>
+	<li>Am PC müssen <a href="https://wiki.postmarketos.org/wiki/Pmbootstrap">pmbootstrap</a>, <code>fastboot</code> sowie <code>7zip</code> vorhanden sein. Unter Void Linux werden sie beispielsweise via <code>xbps-install -Su pmbootstrap android-tools 7zip</code> installiert.</li>
+</ul>
+<p>Wo relevant ist am Beginn jedes Abschnitts erwähnt in welchem Modus sich das Telefon befinden muss. Dies dient lediglich der Orientierung, da es bei Befolgen der Anweisungen ohnehin zu jedem Zeitpunkt im jeweils korrekten Zustand ist.</p>
+<hr />
+<h2 style="vertical-align:middle;">postmarketOS für SHIFT6mq konfigurieren</h2>
+<p><em>(PC)</em></p>
+<p>Zuerst erstellt man am Linux-Rechner ein postmarketOS Installationsabbild:</p>
+<h3>Umgebung aktualisieren</h3>
+<p>Dieser Schritt stellt sicher, dass man mit einer aktuellen Umgebung arbeitet.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pmbootstrap pull
+pmbootstrap status</code></pre></figure><h3>Konfiguration des Abbilds definieren</h3>
+<p>Im diesem Schritt muss als <strong>Vendor</strong> <code>shift</code> und ls <strong>Device codename</strong> <code>axolotl</code> eingestellt werden.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pmbootstrap init</code></pre></figure><p>Hackern sei <code>sxmo-de-sway</code> als <strong>User interface</strong> empfohlen. Diese, sowie die übrigen Optionen können den eigenen Bedürfnissen angepasst oder auf den vorgegebenen Einstellungen belassen werden.</p>
+<p><em>Um Probleme beim Erstellen des Abbildes zu vermeiden, sei von der Angabe von <strong>Extra packages</strong> abgeraten. Zusätzliche Pakete sollten besser später im laufenden System hinzugefügt werden.</em></p>
+<h3>Abbild für verschlüsseltes System generieren</h3>
+<p>Jedes System sollte grundsätzlich verschlüsselt erstellt werden. Damit erspart man sich spätestens bei Weitergabe des Geräts Kopfzerbrechen über etwaige verbliebene Daten.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pmbootstrap install <span class="nt">--fde</span>
+pmbootstrap shutdown</code></pre></figure><p>Per <code>shutdown</code> löst man vorübergehende Mounts der pmbootstrap-Umgebung.</p>
+<hr />
+<h2 style="vertical-align:middle;">Bootloader entsperren</h2>
+<p><em>(Modus: Android)</em></p>
+<p>Im <strong>vorinstallierten Android System &#8220;ShiftOS&#8221;</strong> erlaubt man das Entsperren des Bootloaders:</p>
+<ol>
+	<li><strong>Entwicker-Modus aktivieren</strong><br />
+<em>Einstellungen &gt; Über das Telefon &gt; &#8220;Build-Nummer&#8221; sieben mal berühren</em></li>
+	<li><strong>Erlaubnis zum Entsperren des Bootloaders erteilen</strong><br />
+<em>Einstellungen &gt; System &gt; Erweitert &gt; Entwickleroptionen &gt; &#8220;Erweiterter Neustart&#8221; sowie &#8220;<span class="caps">OEM</span>-Entsperrung&#8221; aktivieren</em></li>
+	<li><strong>Bootloader starten</strong><br />
+<em>Den Ausschaltknopf lange drücken und &#8220;Neu starten&#8221; &gt; Bootloader wählen</em></li>
+	<li><strong>Entsperrung durchführen</strong><br />
+<em>Vom PC aus den Unlock-Befehl an das Telefon senden:<br />
+<code>fastboot flashing unlock</code></em></li>
+</ol>
+<h2>postmarketOS aufspielen</h2>
+<p>Ist aus dem vorigen Schritt noch der Bootloader-Modus aktiv, wechselt man nun in den <b>Fastboot-Modus</b>:</p>
+<ul>
+	<li>Es sollte ausreichen, am PC den Befehl <code>fastboot reboot fastboot</code> zu geben.</li>
+	<li>Alternativ hält man beim Einschalten des Telefons (via <code>Power</code>) gleichzeitig &#8220;Lauter&#8221; (also <code>VolUp</code>) gedrückt.</li>
+	<li>Bei neueren Bootloader-Versionen kann man den entsprechenden Menüpunkt zum direkten Wechsel zu Fastboot nutzen.</li>
+</ul>
+<h3>Installationsslot auswählen</h3>
+<p><em>(Modus: Fastboot)</em></p>
+<p>Es stehen zwei Slots zur Verfügung. PostmarketOS wird in <b>Slot A</b> installiert. Ein neues Android kann später in <b>Slot B</b> geladen werden. Wie eingangs erwähnt, geht das <em>bestehende</em> Android-System im nächsten Schritt allerdings verloren!</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">fastboot <span class="nt">--set-active</span><span class="o">=</span>a
+fastboot reboot fastboot
+fastboot getvar current-slot 2&gt;&amp;1 | <span class="se">\</span>
+        <span class="nb">grep</span> <span class="s1">'current-slot: a$'</span> <span class="o">||</span> <span class="se">\</span>
+        <span class="nb">echo</span> <span class="s1">'Fehler: Falscher Slot aktiv!'</span> <span class="o">&gt;</span>&amp;2</code></pre></figure><h3>Boot- und System-Partition des Telefons bespielen</h3>
+<p><em>(Modus: Fastboot)</em></p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Vorgang dauert rund 76 Sekunden</span>
+pmbootstrap flasher flash_rootfs <span class="nt">--partition</span> system_a
+<span class="c"># Vorgang dauert rund 31 Sekunden</span>
+pmbootstrap flasher flash_kernel <span class="nt">--partition</span> boot_a
+fastboot reboot bootloader
+<span class="c"># Vorgang dauert rund 26 Sekunden</span>
+fastboot erase dtbo_a
+fastboot reboot fastboot</code></pre></figure><p>Laut Wiki<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup> &#8220;steht die dtbo-Partition mit dem Mainline-Kernel in Konflikt&#8221; und wird daher hier gelöscht.</p>
+<hr />
+<h2 style="vertical-align:middle;">Gesamten Slot A für postmarketOS nutzbar machen</h2>
+<p><em>(Modus: Fastboot)</em></p>
+<p>Einige Partitionen innerhalb eines Slots werden lediglich von Android-Systemen genutzt und sind für Linux-Systeme irrelevant.</p>
+<p>Indem man sie löscht, kann der dadurch freigegebene Speicherplatz für die postmarketOS root-Partition von zirka 2 GiB (2128609280 bytes) auf rund 4.5 GiB (4813467648 bytes) erweitern.</p>
+<p>Die folgenden Befehle könnten auf einem technisch abweichenden System unerwartete Auswirkungen haben und sollten daher erst ausgeführt werden, wenn man die einzelnen Schritte versteht. Da diese Änderungen von anderen unabhängig sind, können sie auch jederzeit nachträglich vorgenommen werden.</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Zurück in den Fastboot-Modus wechseln</span>
+fastboot reboot fastboot
+
+<span class="c"># Gesamt-verfügbare Größe ermitteln</span>
+<span class="nv">slot</span><span class="o">=</span><span class="s1">'a'</span>
+<span class="nv">filter</span><span class="o">=</span><span class="s2">":product_</span><span class="nv">$slot</span><span class="s2">:|:system_</span><span class="nv">$slot</span><span class="s2">:|:vendor_</span><span class="nv">$slot</span><span class="s2">:|:system_ext_</span><span class="nv">$slot</span><span class="s2">:"</span>
+<span class="nv">matches</span><span class="o">=</span><span class="sb">`</span>fastboot getvar all 2&gt;&amp;1 | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"</span><span class="nv">$filter</span><span class="s2">"</span><span class="sb">`</span>
+<span class="nv">sizes_hex</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$matches</span><span class="s2">"</span> | sed <span class="nt">-n</span> <span class="s1">'/partition-size/ s#.*partition-size.*:0x##p'</span> | tr <span class="s1">'\n'</span> <span class="s1">'+'</span><span class="sb">`</span>
+<span class="nv">sum_decimal</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="s2">"ibase=16; </span><span class="k">${</span><span class="nv">sizes_hex</span><span class="k">}</span><span class="s2"> 0"</span> | bc<span class="sb">`</span>
+
+<span class="nb">printf</span> <span class="s1">'Relevante Partitionen:\n\n%s\n\n'</span> <span class="s2">"</span><span class="nv">$matches</span><span class="s2">"</span>
+<span class="nb">printf</span> <span class="s1">'Die Root-Partiton wird auf %s Bytes erweitert.\n'</span> <span class="s2">"</span><span class="nv">$sum_decimal</span><span class="s2">"</span>
+
+<span class="c"># Unnötige Partitionen löschen</span>
+<span class="k">for </span>p <span class="k">in </span>product vendor system_ext <span class="p">;</span> <span class="k">do </span>fastboot delete-logical-partition <span class="s2">"</span><span class="k">${</span><span class="nv">p</span><span class="k">}</span><span class="s2">_</span><span class="k">${</span><span class="nv">slot</span><span class="k">}</span><span class="s2">"</span> <span class="p">;</span> <span class="k">done
+</span>fastboot resize-logical-partition system_<span class="k">${</span><span class="nv">slot</span><span class="k">}</span> <span class="nv">$sum_decimal</span>
+
+<span class="c"># Neue Größe ausgeben und postmarketOS starten</span>
+fastboot getvar all 2&gt;&amp;1 | <span class="nb">grep</span> <span class="s2">" partition-size:system_</span><span class="k">${</span><span class="nv">slot</span><span class="k">}</span><span class="s2">:"</span>
+fastboot reboot</code></pre></figure><h3>Dateisystem auf neue Größe ausweiten</h3>
+<p><em>(Modus: postmarketOS)</em></p>
+<p>Abschließend muss per <span class="caps">SSH</span> oder in einem Terminalfenster direkt in postmarketOS das Dateisystem auf die Nutzung der neuen Partitionsgröße eingestellt werden:</p>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">df <span class="nt">-h</span> /dev/mapper/root
+doas resize2fs /dev/mapper/root
+df <span class="nt">-h</span> /dev/mapper/root</code></pre></figure><p><strong>Gratulation! An dieser Stelle hat man ein funktionstüchtiges Linux-Telefon das man nach Belieben weiter gestalten kann.</strong></p>
+<h2>Ausblick</h2>
+<p>Weitere Artikel zum Thema werden unter Anderem erläutern, wie man über die Benutzer-Partition noch mehr Platz für postmarketOS bereit stellt<sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup>, ein freies Android parallel zu postmarketOS installiert (&#8220;Dualboot&#8221;) oder Android-Applikationen direkt in postmarketOS ausführt.</p>
+<p>Smartphones können Zeitfresser sein. Eine Hoffnung die ich in postmarketOS setze ist, dass es langfristig auch im mobilen Bereich eine minimalistische Nutzung ermöglicht und somit dazu beiträgt Smartphones in den Hintergrund zu bringen. Menschen sind wichtiger als Maschinen.</p>
+<p><em>An dieser Stelle vielen Dank an <a href="https://forum.shiftphones.com/members/amartinz.1/">Alex</a> von Shift für die klaren Hinweise, welche die optimale Konfiguration des SHIFT6mq für diesen Artikel deutlich vereinfacht haben!</em></p>
+<hr />
+<p style="vertical-align:middle;" class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> <em>Artikel 1 (dieser)</em></p>
+<p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> <a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Artikel 2 der Serie: Platz aus Android-Benutzerpartition für postmarketOS freigeben</a></p>
+<p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> <a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Artikel 3 der Serie: Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a></p>
+<p class="footnote" id="fn4"><a href="#fnr4"><sup>4</sup></a> <a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Artikel 4 der Serie: Android auf SHIFT6mq parallel zu postmarketOS installieren</a></p>
+<p class="footnote" id="fn6"><a href="#fnr6"><sup>6</sup></a> <a href="https://wiki.postmarketos.org/wiki/SHIFT_SHIFT6mq_(shift-axolotl)">SHIFT6mq im postmarketOS-Wiki</a></p>
+<p class="footnote" id="fn7"><a href="#fnr7"><sup>7</sup></a> <a href="https://datatracker.ietf.org/doc/html/rfc7254"><span class="caps">RFC</span>-7254: <span class="caps">IMEI</span></a></p>
+<p class="footnote" id="fn8"><a href="#fnr8"><sup>8</sup></a> <a href="https://source.android.com/docs/setup/about">Android Open Source Project</a></p>
+<p class="footnote" id="fn9"><a href="#fnr9"><sup>9</sup></a> <a href="https://source.android.com/docs/core/ota/ab"><span class="caps">AOSP</span>: A/B (seamless) system updates</a></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen"
+                            title="Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben"
+                            title="Platz aus Android-Benutzerpartition für postmarketOS freigeben">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+		
+
+    <ol class="commentlist">
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren"/>
+                <input type="hidden" name="post_title" value="postmarketOS auf SHIFT6mq Smartphone installieren" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Android auf SHIFT6mq parallel zu postmarketOS installieren</a><br />
+        <small><strong>December  8, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a><br />
+        <small><strong>December  7, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Platz aus Android-Benutzerpartition für postmarketOS freigeben</a><br />
+        <small><strong>December  6, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren">postmarketOS auf SHIFT6mq Smartphone installieren</a><br />
+        <small><strong>December  5, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen">Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen</a><br />
+        <small><strong>October  8, 2023</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2024 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>

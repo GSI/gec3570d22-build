@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ultimativer Showdown: Grails vs Rails | Groovy Skills International</title>
+    <meta name="description" content="">
+    <meta name="author" content="Dice">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" />
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="/assets/reset.css">
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/assets/layout.css">
+    <link type="text/css" rel="stylesheet" href="/assets/style.css">
+    <link type="text/css" rel="stylesheet" href="/assets/colorbox/colorbox.css">
+    <link type="text/css" rel="stylesheet" href="/assets/morris-0.4.3.css">
+
+    <link rel="shortcut icon" href="/assets/images/favicons/Grails.png" type="image/x-icon" />
+    <!-- Plugin MrWerewolf/jekyll-category-feeds: automatic feed discovery -->
+    <link rel="alternate" type="application/atom+xml" title="Groovy Skills International" href="/atom.xml" />
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+     <link rel="shortcut icon" href="images/favicon.ico">
+     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+     -->
+
+    <!--[if lte IE 6]>
+      <link type="text/css" rel="stylesheet" href="/assets/ie6.css">
+    <![endif]-->
+
+    <!-- link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" / -->
+</head>
+
+
+<body>
+<div id="page" class="hfeed">
+
+    <div id="header">
+    <div id="branding">
+        <h1 class="homelink">
+            <!-- a href="" title="Groovy Skills International">Groovy Skills International</a --!>
+            <a href="/" title="Groovy Skills International">Groovy Skills International</a>
+        </h1>
+
+        <p class="description">Skriptmagie</p>
+    </div>
+
+    <div id="skip"><a title="Skip to content" href="#primary" accesskey="S">Skip to Content &darr;</a></div>
+
+    <div class="header-menu">
+        <ul id="menu-kategorien" class="menu">
+            
+            
+
+  
+    
+    	<li><a href="/categories.html#Linux-ref">
+    		<sub>35</sub> Linux
+    	</a></li>
+    
+    	<li><a href="/categories.html#Allgemein-ref">
+    		<sub>7</sub> Allgemein
+    	</a></li>
+    
+    	<li><a href="/categories.html#Grails-ref">
+    		<sub>6</sub> Grails
+    	</a></li>
+    
+    	<li><a href="/categories.html#WordPress-ref">
+    		<sub>7</sub> WordPress
+    	</a></li>
+    
+    	<li><a href="/categories.html#FreeBSD-ref">
+    		<sub>18</sub> FreeBSD
+    	</a></li>
+    
+    	<li><a href="/categories.html#Rails-ref">
+    		<sub>2</sub> Rails
+    	</a></li>
+    
+    	<li><a href="/categories.html#Corilla-ref">
+    		<sub>5</sub> Corilla
+    	</a></li>
+    
+    	<li><a href="/categories.html#Jekyll-ref">
+    		<sub>8</sub> Jekyll
+    	</a></li>
+    
+    	<li><a href="/categories.html#OpenBSD-ref">
+    		<sub>1</sub> OpenBSD
+    	</a></li>
+    
+  
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+    <div id="container">
+        <div id="rotating">
+            <!-- TODO: extract inline style defination -->
+            <div style="min-height: 150px;"></div>
+        </div>
+        <div class="container">
+
+            <div class="content">
+                <div id="primary" class="looped">
+                    <div class="post type-post status-publish format-standard hentry entry">
+
+    <h1 class="entry-title">
+    <a href="/grails/2012/08/19/ultimativer-showdown-grails-vs-rails" rel="bookmark" title="Permalink zu 'Ultimativer Showdown: Grails vs Rails'">
+        Ultimativer Showdown: Grails vs Rails
+    </a>
+</h1>
+
+
+<div class="entry-byline">
+     19 August 2012 
+</div>
+
+
+    <div class="entry-content">
+        <p>Vor rund zwei Jahren begannen wir die Entwicklung einer Web-Applikation. Aufgrund vorhandener Skills im Bereich Groovy &amp; Java, wurde <b>Grails</b> als Framework gewählt.</p>
+<p>Immer wieder schien das Framework, das sich mit dem Slogan <em>&#8220;the search is over&#8221;</em> brüstet, einer effizienten Entwicklung Steine in den Weg zu werfen.</p>
+<p>Einfache Aufgaben erforderten komplexe Eigenprogrammierungen und kritische Fehler blieben unbehoben. Als der Veröffentlichungstermin der nun aktuellen <b>Grails</b>-Version 2 über das Jahr 2011 hinweg mehrmals verschoben wurde, kamen erste Zweifel auf.</p>
+<p>Im Februar 2012 war unsere Applikation technisch bereit für den Go-Live. Die Fehleranfälligkeit und Komplexität von <b>Grails</b> veranlasste uns <em>dennoch</em> dazu, Alternativen zu suchen anstatt weitere Zeit mit diesem mangelhaften Werkzeug zu verschwenden.</p>
+<p>Das Projekt wurde mit <b>Rails</b> neu gestartet und befindet sich seither in rascherer Entwicklung als zuvor.</p>
+<p><em>Seit 4. Juli 2012 ist das Projekt <a href="http://corilla.net?r=g" title="Corilla - Geh raus und fang an">Corilla</a> im Grundumfang online und überschreitet in Bezug auf Stabilität und Geschwindigkeit sämtliche Erwartungen.</em></p>
+<h2>Vergleich</h2>
+<p>Im Folgenden sind die Vorteile von <b>Rails</b> gelistet welche innerhalb der ersten beiden Monate im <b>Rails</b>-Projekt sofort positiv aufgefallen sind.</p>
+<p><strong>Sie sind in der Reihenfolge gelistet in der sie bemerkt wurden. Somit ist die Reihenfolge ohne Bezug zur Relevanz des jeweiligen Punktes.</strong></p>
+<p><em>Verglichen wird die Rails Version 3.2 mit Grails 2.0.</em></p>
+<h3>SQLite vs. H2 als Datenbank in der Entwicklungsumgebung</h3>
+<p><b>Rails</b> verwendet in der Development-Umgebung standardmäßig <strong>SQLite</strong> als Datenbank &#8211; <b>Grails</b> 2 setzt auf <strong>H2</strong>.</p>
+<ul>
+	<li>H2 ist eine in-memory Datenbank. Sämtliche Datensätze gehen beim Neustart der Applikation verloren. Testdatensätze muss man stets neu anlegen.</li>
+	<li>Die SQLite-Datenbanken werden im Projektverzeichnis gespeichert. Bei Bedarf können sie somit auch einfach in die Versionsverwaltung aufgenommen werden (obgleich das Format dafür eher ungeeignet ist).</li>
+</ul>
+<p>Tatsächlich sollte man bei der Entwicklung jenes <span class="caps">DBMS</span> verwenden, welches auch in der Produktivumgebung zum Einsatz kommt. Dennoch ist für einen raschen Start der <b>Rails</b>-Ansatz klar vorzuziehen.</p>
+<h3>Design aus Scaffolding</h3>
+<p>In <b>Rails</b> ist das generierte Design aus dem Scaffolding Generator simpel gehalten. Damit ist es sinnvoll als Vorlage nutzbar.</p>
+<p>In <b>Grails</b> ist der Aufwand, die ungewollten Teile zu löschen, oft größer als der Vorteil überhaupt erst ein Scaffolding für die Views zur Verfügung zu haben.</p>
+<h3>Rails Validations &#8211; Grails Constraints</h3>
+<p>Datenvalidierung passiert in <b>Rails</b> lediglich auf Applikationsebene.</p>
+<p><b>Grails</b> hinterlegt zusätzlich <em>Datenbank-Constraints</em>. Während letzteres definitiv als Best-Practice anzusehen ist, führt es wiederum zu Problemen welche die Vorteile nichtig machen.</p>
+<p>Im Rahmen eines <a href="http://jira.grails.org/browse/GRAILS-8121">Grails Feature-Request</a> wurde ein case-insensitive Constraint gefordert, der in quasi jeder Webapplikation zumindest für E-Mail Adressen notwendig ist. Die Idee wurde mit der widersprüchlichen Begründung abgelehnt, dass die Anforderung zu stark von der verwendeten Datenbank abhängen würde.</p>
+<p>Während eine manuelle Implementierung in <b>Grails</b> via <code>.withNewSession</code> zu weiteren Verkomplizierungen bei Unit-Tests führt, bietet <b>Rails</b> standardmäßig die notwendige Flexibilität. Die folgende Definition erfüllt die Anforderung:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">:uniqueness</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:case_sensitive</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span></code></pre></figure><h3>Applikations-<span class="caps">URL</span> in Entwicklungsumgebung</h3>
+<p>In <b>Rails</b> kann die Applikation unter <strong>http://localhost:3000</strong> abgerufen werden, während <b>Grails</b> zusätzlich den Applikationsnamen erfordert (<strong>http://localhost:8080/grailsapp</strong>).</p>
+<p>Der kleine Vorteil der <b>Rails</b> Variante ist, dass nur ein Lesezeichen im Browser ausreicht um die jeweils in Entwicklung befindliche Applikation aufrufen zu können.</p>
+<p><b>Grails</b> hat den zusätzlichen Nachteil dass bei Falschschreibung des Applikationsnamens in der <span class="caps">URL</span> eine komplett leere Seite erscheint.</p>
+<p>Als Konsequenz suchte ein Entwickler unnötig nach einem Fehler als der Applikationsname von Klein- auf Großschreibung geändert.<br />
+Das entsprechende Lesezeichen war ungültig geworden.</p>
+<h3>Scaffolding Formulare</h3>
+<p>In <b>Rails</b> wird für die generierte <strong>edit-</strong> und <strong>new-Action</strong> auf das gleiche Formular-Template (&#8220;partial&#8221;) zurückgegriffen, was im Großteil der Webapplikationen gewünscht ist und den Quellcode <span class="caps">DRY</span> hält.</p>
+<p><b>Grails</b> hingegen generiert für beide Actions jeweils eigene Formulare welche man erst mühevoll zusammenführen muss, um dem <span class="caps">DRY</span>-Prinzip folgen zu können.</p>
+<h3>Log Ausgaben</h3>
+<p>Das Logging in <b>Rails</b> beinhaltet die tatsächlichen Werte. Fehler in <span class="caps">SQL</span> Anweisungen können somit rasch gefunden werden.<br />
+<em>(Besonders interessant in diesem Zusammenhang ist die <a href="http://edgeguides.rubyonrails.org/active_record_querying.html#running-explain" title="EXPLAIN und Automatic EXPLAIN in der Rails Dokumentation">Unterstützung für <span class="caps">EXPLAIN</span></a>.)</em></p>
+<p>In <b>Grails</b> fehlen die Werte &#8211; stattdessen sind nur Fragezeichen sichtbar.</p>
+<h3>Festlegung von &#8220;variablen&#8221; Constraints</h3>
+<p>Constraints werden in <b>Grails</b> nur beim Start evaluiert.</p>
+<p>Legt man beispielsweise fest, dass eine Datumsfeld nur ein Datum vom aktuellen Tag oder davor beinhalten darf, wird für die Auswertung der <strong>Tag des Starts der Webapplikation (!)</strong> genutzt. Ein <a href="http://jira.grails.org/browse/GRAILS-8149">entsprechender Bug-Report</a> beschreibt das Problem.</p>
+<p>In <b>Rails</b> kann die Aufgabenstellung mittels eines <strong>lambda</strong> gelöst werden.</p>
+<p>Generell ist das Arbeiten mit Datumseinträgen in <b>Grails</b> schrecklich komplex &#8211; auch wenn man <i>Joda Time</i> zur Vereinfachung einsetzt.</p>
+<h3>Definition von Models</h3>
+<p>Die entsprechende <b>Grails</b> Syntax hierfür ist einfach gestaltet. Beispielsweise kann ein Datenbankfeld auf Basis einer selbst definierten Klasse definieren (<code>MyClass fieldname</code>). <b>Grails</b> kümmert sich dann intern um die entsprechende &#8220;Übersetzung&#8221; auf Datenbankebene.</p>
+<p>Das in diesem Fall etwas irreführende Schlüsselwort &#8220;<code>belongs_to</code>&#8221;, welches bei <b>Rails</b> zum Einsatz kommt, ist oft schwieriger nachzuvollziehen aber letztendlich flexibler.</p>
+<h3>Methoden: Rückgabewert oder Veränderung des Objekts?</h3>
+<p><em>Dieser Punkt ist eher ein Vergleich &#8220;Ruby vs. Java&#8221; als &#8220;Rails vs. Grails&#8221;.</em></p>
+<p>In <b>Java</b> ist kaum erkennbar, ob eine Methode das aufrufende Objekt ändert oder nur einen entsprechenden Rückgabewert liefert. Man bedient sich hoffnungsvoll der Logik oder muss in den Dokumentationen nachsehen.</p>
+<p>Ein <em>Rufzeichen am Ende eines Methodennamens</em> deutet in <b>Ruby</b>-Konvention auf eine Änderung des aufrufenden Objekts hin &#8211; oder verlangt eine Exception im Fehlerfall.</p>
+<h3>Massen-Zuweisung von Werten</h3>
+<p><i>Mass-Assignment</i> birgt das Risiko in sich, Benutzern versehentlich das beliebige Befüllen von Datenbankfeldern zu erlauben auf welche der Zugriff eigentlich verwehrt ist.</p>
+<p>In <b>Grails</b> vermeidet man das Risiko grundsätzlich nur durch <em>Verzicht</em> auf die Funktionalität.</p>
+<p><b>Rails</b> bietet eine sichere Lösung:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="p">.</span><span class="nf">active_record</span><span class="p">.</span><span class="nf">whitelist_attributes</span> <span class="o">=</span> <span class="kp">true</span></code></pre></figure><h3>Constraints für E-Mail Adressen</h3>
+<p>Fern man auf ein entsprechendes Plugin verzichtet, muss man in <b>Rails</b> die Validierung von E-Mail Adressen selbst definieren. Je nachdem wie streng man <span class="caps">RFC</span>-Konformität anstrebt, kann sich das Unterfangen sehr komplex gestalten.</p>
+<p><b>Grails</b> bietet hingegen einen <code>email</code>-Constraint.</p>
+<h3>Stacktraces</h3>
+<p>In <b>Rails</b> sind die Stacktraces generell kürzer. Fehlermeldungen sind aus bisheriger Erfahrung stets deutlich und ermöglichen ein rasches Finden und Beheben von Fehlern.</p>
+<p><b>Grails</b> ist zum Großteil in Java geschrieben (!). Dadurch werden die Stacktraces weit länger und es ist oft unklar ob man mit einem Fehler in der Applikation oder im Framework selbst konfrontiert ist.</p>
+<p>Weit schlimmer ist allerdings dass man für die Nutzung von <b>Grails</b> zwei Sprachen beherrschen muss: <em>Groovy und Java</em>.<br />
+<em>Dabei ist sind die Anforderungen an Java-Fertigkeiten besonders hoch.</em></p>
+<p><b>Rails</b> ist ausschließlich in Ruby implementiert. Es ist unnötig C Quellcode zu lesen.<br />
+<em>(Obgleich die Ruby-Standardimplementierung selbst in C geschrieben ist.)</em></p>
+<h3>Tests und Test-Driven Development</h3>
+<p>Tests laufen in <b>Rails</b> schneller als in <b>Grails</b>.</p>
+<p>Besonders wichtig ist, dass man in <b>Rails</b> die Tests auch jederzeit starten kann <em>während</em> man den Webserver in der Entwicklungsumgebung (localhost:3000) betriebt.</p>
+<p>In <b>Grails</b> scheitert dies. <em>Entweder</em> der Entwicklungsserver <em>oder</em> die Tests laufen.</p>
+<h3>Routing und erlaubte Requests</h3>
+<p>In <b>Rails</b> bestimmt das Routing, also die <i>Rake Middleware</i>, welche Request-Arten (<code>GET</code>, <code>DELETE</code>, <code>POST</code>, <code>PUT</code>) für welche Action erlaubt sind.</p>
+<p>In <b>Grails</b> muss man dies explizit abfangen um die Applikation zusätzlich abzusichern oder eine unterschiedliche Handhabung zu erreichen.</p>
+<h3>Flexibilität des Datenbankmodells</h3>
+<p><b>Rails</b> Migrations sind für uns <em>der</em> Vorteil von <b>Rails</b>. Sie ermöglichen eine flexible Entwicklung. Ruhigen Gewissens kann man eine Struktur nutzen und, sollte sich heraus stellen das ein Ansatz ungünstig war, rasch auf eine andere Modellierung wechseln.</p>
+<p>Ein Grund warum unser Projekt auf <b>Grails</b>-Basis über den Entwicklungszeitraum hinweg offline blieb, war die Sorge das gröbere Änderungen am Datenmodell einen großen Mehraufwand beim manuellen Migrieren erfordern würden.</p>
+<p>Mit den Migrations von <b>Rails</b> ist diese Sorge <em>gänzlich</em> beseitigt.</p>
+<h3>Arbeit mit Datum und Uhrzeit</h3>
+<p>Viele <code>Date</code>-Funktionen in Java (<b>Grails</b>) sind zu Gunsten des unnötig komplexen <code>Calendar</code>-Konzepts überholt (<em>deprecated</em>). Joda Time vereinfacht den Umgang ein wenig, führt aber andererseits auch zu Schwierigkeiten und <em>notwendigen Konvertierungen</em> vor dem Speichern in die Datenbank.</p>
+<p>Die Einfachheit der Ruby/<b>Rails</b> Methoden spricht für sich selbst:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">from_now</span>
+<span class="n">year</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">year</span>
+<span class="n">currently_open</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">between?</span> <span class="n">opens_at</span><span class="p">,</span> <span class="n">closes_at</span></code></pre></figure><h3>Auslesen der Instanzvariablen des Controllers</h3>
+<p>In <b>Rails</b> können mittels der <code>assigns()</code> Methode die im Controller gesetzten Instanzvariablen &#8220;von Außen&#8221; abgefragt werden. Das ermöglicht ausgesprochen einfache funktionale Tests. Folgendes Beispiel prüft ob die Anzahl der aufgelisteten Aktivitäten mit der Anzahl in der Datenbank überein stimmt.</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">activities_count</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="c1"># 3 Aktivitäten erstellen</span>
+<span class="n">activities_count</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="no">FactoryGirl</span><span class="p">.</span><span class="nf">build</span><span class="p">(</span><span class="ss">:activity</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Anzahl der Aktivitäten aus index-action überprüfen</span>
+<span class="n">get</span> <span class="ss">:index</span>
+<span class="n">assert_equal</span> <span class="n">activities_count</span><span class="p">,</span> <span class="n">assigns</span><span class="p">(</span><span class="ss">:activities</span><span class="p">).</span><span class="nf">count</span></code></pre></figure><p>In <b>Grails</b> hingegen ist uns nur die komplizierte Möglichkeit über <span class="caps">GUI</span>-Selektoren bekannt. Der Aufwand für derartige Tests spricht aber selten dafür, sie auch tatsächlich einzusetzen (vgl. Beitrag zu <a href="/grails/2011/07/25/geb-starthilfe-grails-functional-testing" title="Beitrag &#39;Geb Starthilfe - Grails Functional Testing&#39;">Geb Functional Testing</a>).</p>
+<h3>Hilfreiche Fehlermeldungen</h3>
+<p>Fehlermeldungen in <b>Rails</b> sind oft überraschend ausführlich. Folgendes Beispiel zeigt eine klare Formulierung. Sie beinhaltet sogar <em>Vorschläge zur Korrektur (!)</em> und eine passende <em>Vermutung</em>:</p>
+<blockquote>
+<p>ActiveRecord::HasManyThroughSourceAssociationNotFoundError: Could not find the source association(s) :subscribed_activity or :subscribed_activities in model Subscription. Try &#8216;has_many :subscribed_activities, :through =&gt; :subscriptions, :source =&gt; <name>&#8217;. Is it one of :subscriber or :activity?</p>
+</blockquote>
+<p>In <b>Grails</b> folgt man oft der falschen Fährte.</p>
+<h3>JavaScript standardmäßig unaufdringlich</h3>
+<p>In <b>Rails</b> wird JavaScript <em>standardmäßig</em> &#8220;unaufdringlich&#8221; (<em>unobstrusive</em>) gehalten.</p>
+<p>Möchte man JavaScript in einer <b>Grails</b> Applikation unobstrusive halten, muss man auf die Unterstützung durch das Framework verzichten und die entsprechenden Funktionen selbst programmieren.</p>
+<h3>Vorkompilierte Klassen</h3>
+<p>Nur in seltenen Fällen ist in <b>Rails</b> während der Entwicklung ein Neustart der Applikation erforderlich &#8211; beispielsweise nach dem Hinzufügen neuer Plugins (<i>Gems</i>).</p>
+<p>Ansonsten ist es allerdings sogar möglich den aktuellen Entwicklungsstand aus einem Repository zu ziehen (<code>git pull</code>) ohne Schwierigkeiten erwarten zu müssen.<br />
+Ein gesonderter Säuberungslauf ist unnötig.</p>
+<p>In <b>Grails</b> kommt es regelmäßig vor, dass sonderbare Probleme wie aus dem Nichts auftauchen zu scheinen. Aus Erfahrung weiß man später, dass nur ein Säuberungslauf Abhilfe schaffen kann. Im Detail bedeutet das:</p>
+<ol>
+	<li>Applikation stoppen</li>
+	<li>Säubern (<code>grails clean</code>)</li>
+	<li>Applikation starten (<code>grails run-app</code>)</li>
+</ol>
+<p>Der Ablauf kann je nach Umfang der Applikation <em>mehrere kostbare Minuten</em> beanspruchen.</p>
+<p>Das Grails-Plugin <a href="http://grails.org/plugin/nadd-neutralizer" title="Grails-Plugin N.A.D.D. Neutralizer">N.A.D.D. Neutralizer</a> unterstreicht die Ironie:</p>
+<blockquote>
+<p>This plugin will use text to speech to tell you when key events in your build are complete. So say you are like me with a project that takes several minutes to start after grails run-app. You can, guilt-free, go browse your favorite sites without worrying about getting caught up in something. When your app is up and running, this plugin announces on your speakers, &#8220;Application is running!&#8221;</p>
+</blockquote>
+<p><em>Alleine die Existenz eines solchen Plugins sollte skeptisch machen.</em></p>
+<h3>Plugin-Infrastruktur</h3>
+<p>Die Verwaltung von <i>Gems</i> in <b>Rails</b> ist dank <i>Bundler</i> sehr einfach.</p>
+<p>Die <b>Grails</b> Plugin-Infrastruktur ist sehr streng und erlaubt den Entwicklern Kompatibilitätsanforderungen zu hinterlegen. Da diesen für gewöhnlich unbekannt ist, mit welchen Versionen ihr Plugin funktioniert, tragen sie oft sonderbare Grenzen ein. Umerziehungsmaßnahmen seitens der <b>Grails</b> Advokaten schlagen fehl und so passieren Dinge wie das folgende:</p>
+<p><strong>Quartz am 22.04.2012:</strong></p>
+<blockquote>
+<p>| Error Plugin quartz-1.0-RC1 requires version [1.2 &gt; 1.3.7] of Grails which your current Grails installation does not meet. Please try install a different version of the plugin or Grails.</p>
+</blockquote>
+<p>In diesem Beispiel stand keine andere Version des Plugin zur Verfügung. Allerdings ist davon auszugehen, dass die Versionsobergrenze (1.3.7) schlichtweg falsch gesetzt war und das Plugin durchaus auch mit der <b>Grails</b> Version 2 kompatibel wäre.</p>
+<h3>Speicherverbrauch</h3>
+<p>Für die <b>Grails</b> Entwicklung sollten mindestens <em>1,6 GB freier Hauptspeicher</em> zur Verfügung stehen.</p>
+<p><b>Rails</b> ist mit einer Anforderung von rund <em>800 MB</em> nur halb so gierig.</p>
+<p>Im Folgenden ist die Aufteilung der Ressourcen beschrieben.</p>
+<h4>Frameworks</h4>
+<p>Der <b>Rails</b> Serverprozess (WEBrick) beansprucht 75 MB Hauptspeicher.</p>
+<p>Die <b>Grails</b> Applikation mit ähnlichem Funktionsumfang benötigt mit 800 MB das Zehnfache (!)</p>
+<h4>Entwicklungsumgebungen</h4>
+<p>Sowohl RubyMine (für Ruby/Rails) als auch IntelliJ <span class="caps">IDEA</span> (für Java/Groovy/Grails) werden vom tschechischen Unternehmen <a href="http://www.jetbrains.com/">JetBrains</a> entwickelt. Es kann also davon ausgegangen werden, dass die Qualität der beiden Entwicklungsumgebungen auf ähnlichen Niveau befindet.</p>
+<p>Der Speicherverbrauch von IntelliJ <span class="caps">IDEA</span> (<b>Grails</b>) mit gestarteter Applikation liegt laut eines kurzen Tests bei <em>780 MB</em>.<br />
+RubyMine (<b>Rails</b>) verbraucht rund <em>600 MB</em>.</p>
+<p><em>Von einer Entwicklung mit SpringSource <span class="caps">STS</span> (Eclipse) oder NetBeans ist übrigens abzuraten. Beide bieten in Bezug auf die <b>Grails</b> Entwicklung kaum Vorteile. Ein guter Texteditor ist vorzuziehen.</em></p>
+<h3><span class="caps">HTML</span> via content_for</h3>
+<p>Mit Methoden wie <code>content_for()</code>, bietet <b>Rails</b> elegante Möglichkeiten um <span class="caps">HTML</span> zu generieren. View Helper bleiben <em>übersichtlich und sicher</em>.</p>
+<p>Vergleichbares könnte man in <b>Grails</b> theoretisch mittels der <i>Builder</i> erreichen, aber letztendlich ist dort das manuelle Zusammenstückeln der Elemente noch der sinnvollste Weg.</p>
+<h3><span class="caps">HTML</span> Escaping</h3>
+<p>In <b>Rails</b> werden View Ausgaben (<code>&lt;%= ... %&gt;</code>) standardmäßig maskiert (<em>escaped</em>). Dadurch werden viele potentielle Angriffspunkte wie <i><span class="caps">XSS</span></i> geschlossen.<br />
+<em>(Tipp: Benennt man einen Übersetzungsstring in einer i18n-Datei mit der Endung <code>_html</code> weiß <b>Rails</b> automatisch, dass für den hinterlegten Text das Escaping ausgesetzt werden soll)</em></p>
+<p>Ein <b>Grails</b>-Projekt sollte man mit der entsprechenden Konfiguration absichern:</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">grails</span><span class="o">.</span><span class="na">views</span><span class="o">.</span><span class="na">default</span><span class="o">.</span><span class="na">codec</span> <span class="o">=</span> <span class="s">"html"</span> <span class="c1">// none, html, base64</span></code></pre></figure><h3>Array Zugriff</h3>
+<p>In Groovy (<b>Grails</b>) wird eine Exception ausgelöst, wenn der abgefragte Bereich die größe des Arrays übersteigt. In einem Beispiel wie diesem muss man zuerst die Gesamtlänge abfragen, um dann entsprechend &#8220;korrekt&#8221; zugreifen zu können: <code>"123"[0..10]</code></p>
+<p>In Ruby (<b>Rails</b>) spart man sich die Abfrage. Im obigen Beispiel erhält man einfach &#8220;so viel wie möglich&#8221; &#8211; also das Array von 0-2.</p>
+<h3>Case insensitive scoped uniqueness</h3>
+<p>In diesem <b>Grails</b> Beispiel wird sichergestellt, dass ein Veröffentlicher ( <em>scope</em> ) keine Events mit gleichem Titel ( <em>uniqueness</em> ) veröffentlicht. Dabei soll Groß-/Kleinschreibung ignoriert werden ( <em>case-insensitive</em> ).</p>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">title</span> <span class="o">(</span><span class="nl">nullable:</span> <span class="kc">false</span><span class="o">,</span> <span class="nl">blank:</span> <span class="kc">false</span><span class="o">,</span> <span class="nl">unique:</span> <span class="kc">false</span><span class="o">,</span> <span class="nl">size:</span> <span class="mi">5</span><span class="o">..</span><span class="mi">30</span><span class="o">,</span>
+	<span class="nl">validator:</span>  <span class="o">{</span> <span class="n">val</span><span class="o">,</span> <span class="n">obj</span> <span class="o">-&gt;</span>	<span class="o">(</span>
+			<span class="cm">/* checks if the publisher has published an event with the exact same title (case-insensitive match) */</span>
+			<span class="o">!</span><span class="n">Event</span><span class="o">.</span><span class="na">withNewSession</span> <span class="o">{</span>	<span class="c1">// if the get() returns an event, then this is an update - which is fine</span>
+				<span class="o">!</span><span class="n">Event</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">id</span><span class="o">)</span> <span class="o">&amp;&amp;</span>  <span class="n">Event</span><span class="o">.</span><span class="na">findAllByTitleIlikeAndPublisher</span><span class="o">(</span><span class="n">val</span><span class="o">,</span> <span class="n">obj</span><span class="o">.</span><span class="na">publisher</span><span class="o">)</span>
+			<span class="o">}</span>
+	<span class="o">)}</span>
+<span class="o">)</span></code></pre></figure><p>Das Gleiche in <b>Rails</b>:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:length</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:in</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="o">..</span><span class="mi">30</span> <span class="p">},</span>
+          <span class="ss">:uniqueness</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:case_sensitive</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span> <span class="ss">:scope</span> <span class="o">=&gt;</span> <span class="ss">:publisher_id</span> <span class="p">}</span></code></pre></figure><h3>Variablenübergabe an Views</h3>
+<p>Alle Instanzvariablen (<code>@variblenname</code>) aus der entsprechenden Action sind in <b>Rails</b> von der View aus verwendbar.</p>
+<p>In <b>Grails</b> muss Alles in Form einer Map explizit aus dem Controller übergeben werden.</p>
+<h3>Counter-Cache</h3>
+<p>Um die Anzahl der zugehörigen Objekte zu finden stellt <b>Rails</b> die <a href="http://guides.rubyonrails.org/association_basics.html#belongs_to-counter_cache">counter_cache Funktionalität</a> bereit. Per Konvention wird bestimmt welches Feld benutzt werden soll.</p>
+<p>Möchte man in <b>Grails</b> vermeiden bei jedem Aufruf ein <span class="caps">SQL</span> <code>COUNT()</code> abzusetzen, müsste eine ähnliche Funktionalität mittels diverser <i>Interceptors</i> manuell implementiert werden.</p>
+<p>&#8220;Kleinigkeiten&#8221; wie diese zeigen vor allem auf, wie weit <b>Rails</b> bereits in den Details durchdacht ist, während <b>Grails</b> beständig &#8220;am Anfang&#8221; stehen zu scheint.</p>
+<h2>Fazit</h2>
+<p><b>Grails</b> mag dank Groovy für <em>Java-Veteranen (!)</em> eine Erleichterung bieten. Als Framework ist es allerdings weit von den dem entfernt was die Eigenwerbung verspricht.</p>
+<p><em>Für agile Web-Entwicklung und das schnelle Erreichen von Releases ist es schlicht ungeeignet.</em></p>
+<p><b>Rails</b> hingegen scheint sämtliche Best-Practices in der Web-Entwicklung zu vereinen und als Standard vorzulegen.</p>
+<p><em>Der Arbeitsverlauf steckt voller positiver Überraschungen und das Endergebnis kann sich sehen lassen.</em></p>
+    </div>
+
+</div>
+
+<div class="follow">
+	<!-- Begin MailChimp Signup Form -->
+<!-- link href="http://cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css" -->
+<div id="mc_embed_signup">
+	<form action="http://groovy-skills.us2.list-manage1.com/subscribe/post?u=5380f514bfe8f1dd84dff4446&amp;id=8d4063454f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		
+		<div class="mc-field-group">
+			<label for="mce-EMAIL">Hinterlege deine E-Mail Adresse und erhalte den n&auml;chsten Beitrag in deinem Posteingang:</label>
+			<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail Adresse"/>
+			
+			<input type="submit" value="Abonnieren" name="subscribe" id="mc-embedded-subscribe" class="button"/>
+		</div>
+		
+		<input type="hidden" value="2" name="group[15465][2]" id="mce-group[15465]-15465-0"/>
+		<input type="hidden" value="4" name="group[15465][4]" id="mce-group[15465]-15465-1"/>
+		<input type="hidden" value="8" name="group[15465][8]" id="mce-group[15465]-15465-2"/>
+		<input type="hidden" value="16" name="group[15465][16]" id="mce-group[15465]-15465-3"/>
+		<input type="hidden" value="32" name="group[15465][32]" id="mce-group[15465]-15465-4"/>
+		
+		<div id="mce-responses">
+			<div class="response" id="mce-error-response" style="display:none"></div>
+			<div class="response" id="mce-success-response" style="display:none"></div>
+		</div>
+	</form>
+</div>
+<!--End mc_embed_signup-->
+
+</div>
+
+<div class="pagination">
+    <ul>
+        
+        <li class="prev"><a href="/jekyll/2012/08/16/shell-kommando-zum-raschen-andern-der-jekyll-front-matter"
+                            title="Shell-Kommando zum raschen Ändern der Jekyll-Post Front Matter">&larr; Previous</a></li>
+        
+
+        <li><a href="/archive.html">Archive</a></li>
+
+        
+        <li class="next"><a href="/linux/2012/08/31/kmail-mails-in-posteingang-optimal-zusammenstellen-gruppieren"
+                            title="KMail: Mails in Posteingang optimal zusammenstellen &amp; gruppieren">Next &rarr;</a></li>
+        
+    </ul>
+</div>
+
+<div id="comments">
+	
+            <h3 class="comments-number">13 Kommentare</h3>
+	
+
+    <ol class="commentlist">
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            KoW
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-19 18:10</span>
+                </div>
+
+                <p>
+                    Ohne irgendwie bewerten zu wollen: warum genau braucht man Java-Kenntnisse für Grails? Was waren wirklich die grossen Probleme mit Grails? Weil, ganz ehrlich: SQLite vs H2 kanns nicht sein, ein schon fast fertiges Projekt abzubrechen...
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            <a href="http://patrick-huetter.de">Patrick Hütter</a>
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-19 18:45</span>
+                </div>
+
+                <p>
+                     sehr interessanter Artikel den du da geschrieben hast.<br />
+Ich selbst habe öfters mit kleinen Problemen in Grails zu kämpfen. Kinderkrankheiten, die dich praktisch um Tage zurück werfen. Ein Freund von mir schwört auf Rails, aber bis heute konnte ich es mir nicht angucken bzw. habe mir die Zeit nicht dafür genommen, da ich fest davon überzeugt war, dass Grails besser sein muss.<br />
+<br />
+<br />
+Das Scaffolding der Formulare, dass du angesprochen hast, ist im aktuellen Grails aber genau so wie in Rails. (Ein Formular-Template) Ebenso bietet Grails in der aktuellen Version (2.1) standardmäßig Migration-Möglichkeit.<br />
+<br />
+<br />
+Das Problem mit Datum und Uhrzeit ist leider immer so ein leidiges Thema in Java als auch noch in Grails...dank JodaTime gehts ja noch...<br />
+<br />
+<br />
+Noch bin ich nicht ganz überzeugt, dass Rails nun wirklich die bessere Wahl ist. Ich werde wohl auch beide Frameworks vergleichen müssen. Bin gespannt auf die Diskussion hier! Und wäre cool wenn du dir noch einmal das aktuelle Grails 2.1 anschauen könntest und dann nochmal schlussfolgerst. :-)
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Jeff Pogo
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-19 19:15</span>
+                </div>
+
+                <p>
+                    Based upon your article ... I think you should gain more Grails experience before writing a review or comparison.  Your examples are from a novice perspective and not really obstacles or limitations.
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Dice
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-20 10:42</span>
+                </div>
+
+                <p>
+                    *@KoW*<br />
+<br />
+Der Artikel beschreibt, chronologisch sortiert, die positiven Auffälligkeiten aus den ersten Monaten mit Rails im Vergleich zu zirka 20 Monaten Grails-Erfahrung.<br />
+<br />
+Mir ist wichtig, dass die Intention dieses Artikels verstanden wird:<br />
+<br />
+* *Ziel:* Eine Entscheidungshilfe zu bieten (statt glückliche Grails-Nutzer von "ihrem" Framework abzubringen).<br />
+<br />
+* *Motivation:* Ich hätte mir damals selbst einen Artikel gewünscht, der _spezifische_ Punkte anspricht, statt die beiden Frameworks nur oberflächlich zu betrachten. Nun gibt es ihn und möglicherweise erspart er Anderen unnötig investierte Zeit.<br />
+<br />
+* *Nutzen:* Die Leser haben hiermit die Möglichkeit auf die Erfahrung von jemanden zurückzugreifen, der mit _beiden_ Frameworks tatsächlich gearbeitet hat, statt die Frameworks auf Basis _einseitiger_ Erfahrungsberichte und Sichtweisen einschätzen zu müssen.<br />
+<br />
+<br />
+*Probleme aus technischer Sicht*<br />
+<br />
+Einen negativen Beitrag zu verfassen, welcher nur die Fehler von Grails aufzeigt, wäre für die Leser nutzlos und im Prinzip nur die Wiedergabe unzähliger "Grails JIRA Issues":http://jira.grails.org/secure/IssueNavigator.jspa, welche im Projektverlauf aufgefallen sind.<br />
+<br />
+_Die meisten jener Bugreports sind nach wie vor offen oder wurden ohne Lösung geschlossen._<br />
+<br />
+Genau diese Fehler behindern die effiziente Entwicklung. Möchte man sie beheben, oder _zumindest_ umgehen, muss man auf umfassende Java-Kenntnisse zurückgreifen, da Grails eben zum Großteil in dieser Sprache geschrieben ist.<br />
+<br />
+<br />
+*Probleme aus "geschäftlicher" Perspektive*<br />
+<br />
+Entwicklungszeit ist wertvoll. Mit Rails erreicht man in weniger Mannstunden elegantere Lösungen, die einfacher zu warten sind.<br />
+<br />
+Währenddessen behindern die Fehler in Grails das effiziente Arbeiten. Hier passierte es auffällig oft, dass kleine Programmieraufgaben einen Manntag Umsetzungszeit erforderten, weil Probleme des Frameworks behandelt werden mussten.<br />
+<br />
+Ich hoffe die Erläuterungen machen die Gründe etwas deutlicher und helfe gerne bei weiteren Fragen.
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Dice
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-20 11:08</span>
+                </div>
+
+                <p>
+                    *@Patrick Hütter*<br />
+<br />
+Danke für deine Erfahrungen zum Thema.<br />
+<br />
+Ich habe mir gestern "Whats new in Grails 2.1?":http://grails.org/doc/2.1.0/guide/introduction.html#whatsNew21 aus der offiziellen Dokumentation durchgesehen, konnte allerdings keine besonderen Vorteile feststellen.<br />
+<br />
+Wichtig ist zu erkennen, dass im Fall von Grails weniger die Software an sich das Problem darstellt - Ich bin überzeugt, dass kluge Köpfe am Grails-Core arbeiten und dabei hochwertigen Code schreiben.<br />
+<br />
+Grails bietet weit weniger Möglichkeiten als Rails, weil eben auch für diese Entwickler der Tag nur 24 Stunden hat.<br />
+<br />
+Unser Projekt begann in der damals aktuellen Grails Version 1.3.3 (Jahr 2010). Das Framework wirkte dauernd - und besonders ab Version 2 - als befände es sich im Alpha-Stadium.<br />
+<br />
+Ein gutes Framework deckt - auch mit seinen Plugins - so viele absehbare Anwendungsfälle wie möglich in hoher Qualität ab und verringert so den individuellen Entwicklungsaufwand.<br />
+<br />
+Meine "beste Vermutung" dazu, woran Grails letztendlich scheitert ist die mangelnde Verbreitung.<br />
+<br />
+Interessant ist deine Überzeugung, dass Grails "besser sein muss". Worauf basiert sie?
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Dice
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-20 11:20</span>
+                </div>
+
+                <p>
+                    *@Jeff Pogo*<br />
+<br />
+I disagree. 20 months should definitely suffice. I suspect the intention of the article along with the answer to the question why it was held in such a fashion might have been lost in translation.<br />
+<br />
+Certainly, _Java_ veterans will find ways to work around limitations more easily. However, the point of a framework should be to provide means of simply & quickly accomplishing common goals instead of introducing new forms of issues which a - regardless how experienced - developer has to cope with. 
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Georg
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-20 20:18</span>
+                </div>
+
+                <p>
+                    Der Artikel ist aus meiner Sicht nicht objektiv - schon der Titel legt dies nah. Was hat das Herausgreifen von ein paar Punkten mit einem "ultimativen Showdown" zu tun?<br />
+<br />
+<br />
+Eine Sache, die wohl mit Deinem Urteil zu tun hat, ist der Punkt mit dem Java-Hintergrund (ich bin ja der Ansicht, dass auch Ruby keine schöne Sprache ist, was die Syntax angeht,  aber das ist etwas anderes). Ja, wer ein Grails-Projekt fährt, sollte definitiv auch mit Java umgehen können! Es ist aber wohl eher ein Fehler im Projektmanagement, wer dies nicht einsehen möchte oder weiß, als dem Framework aufgrund mangelnder Erfahrung Fehler nachzusagen.<br />
+Dass man mit Java umgehen können sollte ist aber auch klar, denn Grails ist mit Groovy und dieses wiederum unmittelbar mit Java verbunden.<br />
+Wenn man ein Android-Projekt macht, wird man auch eher Leute mit Java-Hintergrund bevorzugen. Dasselbe bei iOS - wer vorher mit C oder C++ seine Erfahrung gesammelt hat, wird hier wesentlich schneller zu Rande kommen.<br />
+<br />
+<br />
+<br />
+<br />
+Um noch auf ein paar weitere Punkte einzugehen:<br />
+In der Regel geht man bei Grails bei wirklich kritischen Bugs schnell auf die Tickets ein. Im Falle der Datums-Geschichte wäre es vermutlich ein Ein-Zeiler, um einen Validator zu schreiben. Eine Closure und fertig.<br />
+Den Punkt mit der DB finde ich nicht plausibel. Was ist an einer SQLite besser? Immerhin wäre man interessant zu wissen, welcher der kleinste gemeinsame Nenner bei Rails-Datenbank das ist, was in der Java-Welt JDBC ist. Zudem kann man ja in Grails ganz einfach eine MySQl, Postgres, Oracle usw. einbinden.<br />
+<br />
+<br />
+Was die DB-Migrationen angeht, sollte man wissen dass es hierfür ein hervorragendes "dbm"-Plugin gibt.<br />
+<br />
+<br />
+In Bezug auf den immensen Speicherverbrauch und das HTML-Escaping gebe ich Dir recht.<br />
+<br />
+<br />
+Nichts für ungut,<br />
+Georg
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            Dice
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-08-21 11:47</span>
+                </div>
+
+                <p>
+                    Das Herausgreifen bestimmter Punkte ist Sinn und Zweck des Artikels. Er verschafft mittels spezifischer Vergleiche einen Überblick. Eine vollständige Darstellung bietet (nichtmal) das Studieren der Quellcodes beider Projekte.<br />
+<br />
+Es freut mich, dass du die Abhängigkeit zu Java bestätigst.<br />
+Vor allem jene die sich nur theoretisch oder im Rahmen von Projekten mit minimalem Umfang mit Grails beschäftigen, glauben mit Groovy auskommen zu können. Diese Überzeugung wird leider seitens des offiziellen Marketings gefördert und führt somit zu falschen Erwartungen und Überzeugungen.<br />
+<br />
+Interessant ist allerdings, dass in unserem Fall mehrere Jahre kombinierte Java- sowie Monate Groovy-Erfahrung zur Verfügung standen. Ruby wurde erst im Rahmen des Projekt-Neustarts gelernt.<br />
+<br />
+Der folgende kritische Bug bezieht sich auf *Spring Security Core* und *Resources* - zwei Kernelemente jedes Grails-Projekts. Er wurde lange ignoriert und besteht nun nach einem Jahr nach wie vor - ein Muster das sich in ähnlicher Form auch bei anderen Bugs abzeichnet.<br />
+<br />
+"GPSPRINGSECURITYCORE-98":http://jira.grails.org/browse/GPSPRINGSECURITYCORE-98 
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            <a href="http://patrick-huetter.de">Patrick Hütter</a>
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-09-07 07:03</span>
+                </div>
+
+                <p>
+                    Jetzt sind ein paar Wochen vergangen seitdem ich deinen Artikel gelesen habe und er ist mir eben wieder eingefallen, als ich wieder mal Probleme im Grails Ökosystem hatte. Ich weiß nicht ob das bei Rails besser ist, aber das Problem bei Grails ist einfach, dass die Plugins teils nicht genug pepflegt werden und sie bei Updates schnell outdated sind. Wenn dann keiner diese Plugins updated oder anpasst an die neue Umgebung muss man wieder selbst Hand anlegen, da man sonst nicht weiter kommt oder mit seiner eigenen Applikation stehen bleibt oder nicht upgraden kann.<br />
+<br />
+<br />
+Ich hänge jetzt seit 3 Tagen an einer eigentlich recht simplen Sache: Ich möchte die Sessions in der Datenbank speichern, damit ich darüber Cookie und User-Tracking betreiben kann. Desweiteren möchte ich meine App später ggf. bei Heroku deployen. Ich nutze Spring Security für die Authentication. Eigentlich ein recht simples Setup denkt man sich: grails-database-session, spring-security-core und heroku Plugin installieren. Klappt aber nicht! Weil a) database session Plugin outdated => Entwickler kontaktieren oder selbst basteln b) Spring Security Core sich nicht an die Definitionen hält und nach einem Logout auf die Session zugreift => Lauter Exceptions wenn man das database session Plugin nutzt => Workaround: Plugin anpassen c) Um auf Heroku zu deployen, muss man zwingend die Sessions in der DB speichern, da Heroku die Sessions nicht skalieren kann, also kann man nicht wirklich produktiv auf Heroku deployen, da es kein Setup gibt, dass sauber ohne Fehler funktioniert. Und das, obwohl Grails stark damit wirbt so gut für die "Cloud" zu sein.<br />
+<br />
+<br />
+So Fälle habe ich immer wieder vereinzelt, wenn es eben nicht nur um "CRUD" geht. Ich denke Grails ist ein gutes Framework, aber wie du schon sagtest, fehlt es an Verbreitung und dementsprechend die Community dahinter.<br />
+<br />
+<br />
+Ich werde in nächster Zeit auch mal Rails testen.
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            <a href="https://twitter.com/syllepsa">syllepsa</a>
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2012-09-07 14:45</span>
+                </div>
+
+                <p>
+                    Thanks for the blog entry. I was able to read it with Chrome translator.<br />
+<br />
+<br />
+As far as goes "Date and Time" there is a MagicNumbers plugin.<br />
+http://grails.org/plugin/magic-numbers<br />
+<br />
+<br />
+
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            <a href="http://groovy-skills.com">larissak</a>
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2013-04-20 17:06</span>
+                </div>
+
+                <p>
+                    bq.:http://www.77dev.com/2012/11/grails-vs-rails.html Grzegorz, I think the reason for missing comparisons based on real development experience is ignorance.<br />
+People who start out with any framework often simply *assume* that they are already using the best framework available. After all, that's what the marketing told them, right?<br />
+<br />
+Besides, allowing the thought that their current framework is a fail, would mean they'd have to redo their project from scratch or, at least, accept the fact that they'd wasted time by aggregating knowledge about it.<br />
+<br />
+_Our experience after working intensively with both, Grails and Rails, has been the same as yours: One promises, the other delivers._<br />
+<br />
+In order to provide developers with the opportunity to get a solid impression, we compiled a comparison based on a real-life project.<br />
+It emerged while reimplementing that project in Rails. Thus it highlights the differences based on details of common challenges that most projects will face within the first couple of weeks/months.<br />
+<br />
+http://groovy-skills.com/Grails/2012/08/19/ultimativer-showdown-grails-vs-rails/<br />
+<br />
+(The article is in German, so you might want to use a translator.)
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment even">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            mjankela
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2013-07-28 09:58</span>
+                </div>
+
+                <p>
+                    Hallo,<br />
+Ein sehr guter Beitrag der mich zum Nachdenken angeregt hat.Momentan bin ich in einer frühen Phase der Evaluation beider Frameworks und muss sagen bis jetzt sind beide Frameworks exzellent durchdacht und ich schwanke noch zwischen Rails und Grails.<br />
+Aber als Reviewanmerkung:<br />
+SQLite vs. H2 als Datenbank in der Entwicklungsumgebung (sehr guter Punkt)<br />
+H2 kann als InMemory oder als FileDb sehr einfach eingestellt werden. InMemory ist praktisch in einer sehr frühen Prototypephase. Ein Umschalten auf Filebasierten zugriff ist ebenfalls in GRAILS möglich und sehr einfach. Also hier ist meiner momentanen Meinung nach das H2 Modell sogar einen Sprung vor dem SQLite Model in der Einfachheit der Handhabung und der Kompatibilität zu bestehenden Datenbanklösungen.<br />
+Rails Validations – Grails Constraints Mir erscheint im Moment die Grails validierung zwar technisch "umständlicher" aber sicherer in der Anwendung für Web Applikationen. Theoretisch könnte man ja die Applikation umgehen und direkt die Daten über http Terminal request und SQL Injektion auslesen. Das Grails Konzept der Datenbank Constraints macht da glaube ich schon sinn.<br />
+Trotzdem super blog, ich sehe Ihn als Brainstorm Sammlung und Erfahrungspool an, denn ich bin mir sicher wir sind nicht die Einzigen welche diese zwei Frameworks evaluieren müssen.<br />
+Danke nochmals, Beste Grüsse<br />
+<br />
+
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+        <li class="comment odd">
+            <div class="comment-body">
+
+                <div class="comment-author vcard">
+                    <cite class="fn">
+                        
+                            <a href="http://groovy-skills.com">Dice</a>
+                        
+                    </cite> <span class="says">sagt:</span>
+                </div>
+
+                <div class="comment-meta commentmetadata">
+                    <span class="comment_date">2014-01-29 22:49</span>
+                </div>
+
+                <p>
+                    *Aktuelle Statistiken zum 29.01.2014*<br />
+**Grails** 10.346 Tickets 2.366 offen / 7.980 geschlossen Verhältnis: 23% zu 77% Quelle: http://jira.grails.org/issues/?jql=project%20%3D%20GRAILS<br />
+**Rails** 14.051 Tickets 741 offen / 13.310 geschlossen Verhältnis: 5% zu 95% Quelle: https://github.com/rails/rails/issues
+                </p>
+
+                <div class="reply">
+                    <a class='comment-reply-link' href='#respond'>Antworten</a>
+                </div>
+            </div>
+        </li>
+	
+    </ol>
+
+    <!-- div id="respond">
+        <h3 id="reply-title">Hinterlasse eine Antwort</h3>
+
+        <form id="commentform" method="POST" action="http://groovy-skills.com/commentsubmit.php_DEAK">
+            <p class="comment-notes">
+                Deine E-Mail-Adresse bleibt geheim. Erforderliche Felder sind markiert <span class="required">*</span>
+            </p>
+
+            <p class="comment-form-author">
+                <label for="author">Name</label> <span class="required">*</span>
+                <input id="author" name="name" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-email">
+                <label for="email">E-Mail-Adresse (bleibt geheim)</label>
+                <span class="required">*</span>
+                <input id="email" name="email" type="text" value="" size="30" aria-required='true'/>
+            </p>
+
+            <p class="comment-form-url">
+                <label for="url">Website</label>
+                <input id="url" name="link" type="text" value="" size="30"/>
+            </p>
+
+            <p class="comment-form-comment">
+                <label for="comment">Deine Gedanken</label>
+                <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+            </p>
+
+            <p class="form-allowed-tags">Du kannst Textile-Formatierungen benutzen.</p>
+
+            <p class="form-submit">
+                <input name="submit" type="submit" id="submit" value="Kommentar abschicken"/>
+                <input type="hidden" name="post_id" value="/grails/2012/08/19/ultimativer-showdown-grails-vs-rails"/>
+                <input type="hidden" name="post_title" value="Ultimativer Showdown: Grails vs Rails" />
+                <input type="hidden" name="return_url" value="http://groovy-skills.com/grails/2012/08/19/ultimativer-showdown-grails-vs-rails"/>
+            </p>
+        </form>
+    </div -->
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary">
+    <div id="pp-subscribe" class="clearfix">
+        <ul class="clearfix">
+            <li id="pp-feed">
+                <a href="/atom.xml" title="Abonniere alle Artikel als RSS">
+                    Abonniere <span class="email-narrow">alle Artikel</span> als RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pp-sidebars" class="clearfix">
+        <div id="sidebar-wide" class="sidebar">
+            <ul class="xoxo sidebar-items">
+
+                <li class="widget widget_recent_entries">
+                    <h2 class="widgettitle">Neueste Artikel</h2>
+                    <ul>
+
+    
+    <li><a href="/linux/2023/12/08/android-auf-shift6mq-parallel-zu-postmarketos-installieren">Android auf SHIFT6mq parallel zu postmarketOS installieren</a><br />
+        <small><strong>December  8, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/07/bootloader-firmware-des-shift6mq-smartphones-aktualisieren">Bootloader-Firmware des SHIFT6mq Smartphones aktualisieren</a><br />
+        <small><strong>December  7, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/06/platz-aus-android-benutzerpartition-fur-postmarketos-freigeben">Platz aus Android-Benutzerpartition für postmarketOS freigeben</a><br />
+        <small><strong>December  6, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/12/05/postmarketos-auf-shift6mq-smartphone-installieren">postmarketOS auf SHIFT6mq Smartphone installieren</a><br />
+        <small><strong>December  5, 2023</strong> . Linux . </small>
+    </li>
+    
+    <li><a href="/linux/2023/10/08/bildschirmausgabe-einer-libvirt-slash-qemu-instanz-als-video-aufnehmen">Bildschirmausgabe einer libvirt/QEMU-Instanz als Video aufnehmen</a><br />
+        <small><strong>October  8, 2023</strong> . Linux . </small>
+    </li>
+    
+
+</ul>
+
+                </li>
+
+                
+                <li class="widget">
+                    <h2 class="widgettitle">Themen dieses Artikels</h2>
+                    <ul class="tag_box">
+                        
+                        
+
+  
+     
+    	<li><a href="/tags.html#Grails-ref">
+    	  <sub>1</sub> Grails
+    	</a></li>
+     
+    	<li><a href="/tags.html#Groovy-ref">
+    	  <sub>2</sub> Groovy
+    	</a></li>
+     
+    	<li><a href="/tags.html#Java-ref">
+    	  <sub>1</sub> Java
+    	</a></li>
+     
+    	<li><a href="/tags.html#Rails-ref">
+    	  <sub>1</sub> Rails
+    	</a></li>
+     
+    	<li><a href="/tags.html#Ruby-ref">
+    	  <sub>2</sub> Ruby
+    	</a></li>
+    
+  
+
+
+
+                    </ul>
+                </li>
+                
+
+                <li class="widget">
+                    <h2 class="widgettitle">Werbefl&auml;che</h2>
+                    <a href="http://www.amazon.de/dp/3938516267/?tag=dice0e-21" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen">
+  <img class="nocb noanchor" title="Klicke hier um 'Das Silberkomplott - Warum der Silberpreis explodieren wird' bei Amazon zu bestellen" src="/assets/images/amazon/buch_reinhard_deutsch_das_silberkomplott.jpg" alt="" title="" width="340" height="500" />
+</a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+	<div id="footer">
+	    <p class="left">
+	        &#169; 2024 <strong>Groovy Skills International</strong>
+	        | Powered by <strong><a href="http://jekyllrb.com/">Jekyll</a></strong>
+	    </p>
+
+	    <p class="right">
+	        A Jekyll theme by <strong>Dice</strong> based on a
+	        <a href="http://www.techtrot.com/primepress/" title="PrimePress theme homepage">
+	            WordPress theme
+	        </a>
+	        by <strong>Ravi Varma</strong>
+	    </p>
+	</div>
+
+    </div>
+
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://trace.uber.space/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "10"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://trace.uber.space/piwik.php?idsite=10&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-colorbox-1.4.31.js"></script>
+<script type="text/javascript" src="/assets/raphael-2.1.2.js"></script>
+<script type="text/javascript" src="/assets/morris-0.4.3.js"></script>
+<script type="text/javascript" src="/assets/jekyll_date_chart.js"></script>
+<script type="text/javascript" src="/assets/theme.js"></script>
+
+</body>
+</html>
